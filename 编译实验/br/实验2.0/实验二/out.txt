@@ -1,0 +1,212 @@
+<1>  0 | | program | shift
+
+<2>  02 |  program  | id | shift
+
+<3>  023 |  program id  | ( | shift
+
+<4>  0234 |  program id (  | id | shift
+
+<5>  02346 |  program id ( id  | , | reduce:id_lists->id
+
+<6>  02345 |  program id ( id_lists  | , | shift
+
+<7>  023458 |  program id ( id_lists ,  | id | shift
+
+<8>  02345810 |  program id ( id_lists , id  | ) | reduce:id_lists->id_lists , id
+
+<9>  02345 |  program id ( id_lists  | ) | shift
+
+<10> 023457 |  program id ( id_lists )  | ; | shift
+
+<11> 0234579 |  program id ( id_lists ) ;  | begin | shift
+
+<12> 023457912 |  program id ( id_lists ) ; begin  | id | shift
+
+<13> 02345791217 |  program id ( id_lists ) ; begin id  | := | shift
+
+<14> 0234579121723 |  program id ( id_lists ) ; begin id :=  | num | shift
+
+<15> 023457912172329 |  program id ( id_lists ) ; begin id := num  | + | reduce:factor->num
+
+<16> 023457912172327 |  program id ( id_lists ) ; begin id := factor  | + | reduce:term->factor
+
+<17> 023457912172326 |  program id ( id_lists ) ; begin id := term  | + | reduce:expr->term
+
+<18> 023457912172332 |  program id ( id_lists ) ; begin id := expr  | + | shift
+
+<19> 02345791217233235 |  program id ( id_lists ) ; begin id := expr +  | id | shift
+
+<20> 0234579121723323528 |  program id ( id_lists ) ; begin id := expr + id  | * | reduce:factor->id
+
+<21> 0234579121723323527 |  program id ( id_lists ) ; begin id := expr + factor  | * | reduce:term->factor
+
+<22> 0234579121723323540 |  program id ( id_lists ) ; begin id := expr + term  | * | shift
+
+<23> 023457912172332354036 |  program id ( id_lists ) ; begin id := expr + term *  | id | shift
+
+<24> 02345791217233235403628 |  program id ( id_lists ) ; begin id := expr + term * id  | ; | reduce:factor->id
+
+<25> 02345791217233235403641 |  program id ( id_lists ) ; begin id := expr + term * factor  | ; | reduce:term->term * factor
+
+<26> 0234579121723323540 |  program id ( id_lists ) ; begin id := expr + term  | ; | reduce:expr->expr + term
+
+<27> 023457912172332 |  program id ( id_lists ) ; begin id := expr  | ; | reduce:stmt->id := expr
+
+<28> 02345791216 |  program id ( id_lists ) ; begin stmt  | ; | reduce:stmts->stmt
+
+<29> 02345791215 |  program id ( id_lists ) ; begin stmts  | ; | shift
+
+<30> 0234579121522 |  program id ( id_lists ) ; begin stmts ;  | if | shift
+
+<31> 023457912152219 |  program id ( id_lists ) ; begin stmts ; if  | id | shift
+
+<32> 02345791215221928 |  program id ( id_lists ) ; begin stmts ; if id  | < | reduce:factor->id
+
+<33> 02345791215221927 |  program id ( id_lists ) ; begin stmts ; if factor  | < | reduce:term->factor
+
+<34> 02345791215221926 |  program id ( id_lists ) ; begin stmts ; if term  | < | reduce:expr->term
+
+<35> 02345791215221925 |  program id ( id_lists ) ; begin stmts ; if expr  | < | shift
+
+<36> 0234579121522192534 |  program id ( id_lists ) ; begin stmts ; if expr <  | id | shift
+
+<37> 023457912152219253428 |  program id ( id_lists ) ; begin stmts ; if expr < id  | then | reduce:factor->id
+
+<38> 023457912152219253427 |  program id ( id_lists ) ; begin stmts ; if expr < factor  | then | reduce:term->factor
+
+<39> 023457912152219253426 |  program id ( id_lists ) ; begin stmts ; if expr < term  | then | reduce:expr->term
+
+<40> 023457912152219253439 |  program id ( id_lists ) ; begin stmts ; if expr < expr  | then | reduce:bool->expr < expr
+
+<41> 02345791215221924 |  program id ( id_lists ) ; begin stmts ; if bool  | then | shift
+
+<42> 0234579121522192433 |  program id ( id_lists ) ; begin stmts ; if bool then  | id | shift
+
+<43> 023457912152219243317 |  program id ( id_lists ) ; begin stmts ; if bool then id  | := | shift
+
+<44> 02345791215221924331723 |  program id ( id_lists ) ; begin stmts ; if bool then id :=  | id | shift
+
+<45> 0234579121522192433172328 |  program id ( id_lists ) ; begin stmts ; if bool then id := id  | else | reduce:factor->id
+
+<46> 0234579121522192433172327 |  program id ( id_lists ) ; begin stmts ; if bool then id := factor  | else | reduce:term->factor
+
+<47> 0234579121522192433172326 |  program id ( id_lists ) ; begin stmts ; if bool then id := term  | else | reduce:expr->term
+
+<48> 0234579121522192433172332 |  program id ( id_lists ) ; begin stmts ; if bool then id := expr  | else | reduce:stmt->id := expr
+
+<49> 023457912152219243338 |  program id ( id_lists ) ; begin stmts ; if bool then stmt  | else | shift
+
+<50> 02345791215221924333843 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else  | begin | shift
+
+<51> 0234579121522192433384312 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin  | while | shift
+
+<52> 023457912152219243338431220 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while  | id | shift
+
+<53> 02345791215221924333843122028 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while id  | + | reduce:factor->id
+
+<54> 02345791215221924333843122027 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while factor  | + | reduce:term->factor
+
+<55> 02345791215221924333843122026 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while term  | + | reduce:expr->term
+
+<56> 02345791215221924333843122025 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while expr  | + | shift
+
+<57> 0234579121522192433384312202535 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while expr +  | id | shift
+
+<58> 023457912152219243338431220253528 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while expr + id  | < | reduce:factor->id
+
+<59> 023457912152219243338431220253527 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while expr + factor  | < | reduce:term->factor
+
+<60> 023457912152219243338431220253540 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while expr + term  | < | reduce:expr->expr + term
+
+<61> 02345791215221924333843122025 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while expr  | < | shift
+
+<62> 0234579121522192433384312202534 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while expr <  | id | shift
+
+<63> 023457912152219243338431220253428 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while expr < id  | do | reduce:factor->id
+
+<64> 023457912152219243338431220253427 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while expr < factor  | do | reduce:term->factor
+
+<65> 023457912152219243338431220253426 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while expr < term  | do | reduce:expr->term
+
+<66> 023457912152219243338431220253439 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while expr < expr  | do | reduce:bool->expr < expr
+
+<67> 02345791215221924333843122030 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while bool  | do | shift
+
+<68> 0234579121522192433384312203037 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while bool do  | id | shift
+
+<69> 023457912152219243338431220303717 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while bool do id  | := | shift
+
+<70> 02345791215221924333843122030371723 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while bool do id :=  | id | shift
+
+<71> 0234579121522192433384312203037172328 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while bool do id := id  | + | reduce:factor->id
+
+<72> 0234579121522192433384312203037172327 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while bool do id := factor  | + | reduce:term->factor
+
+<73> 0234579121522192433384312203037172326 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while bool do id := term  | + | reduce:expr->term
+
+<74> 0234579121522192433384312203037172332 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while bool do id := expr  | + | shift
+
+<75> 023457912152219243338431220303717233235 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while bool do id := expr +  | num | shift
+
+<76> 02345791215221924333843122030371723323529 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while bool do id := expr + num  | ; | reduce:factor->num
+
+<77> 02345791215221924333843122030371723323527 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while bool do id := expr + factor  | ; | reduce:term->factor
+
+<78> 02345791215221924333843122030371723323540 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while bool do id := expr + term  | ; | reduce:expr->expr + term
+
+<79> 0234579121522192433384312203037172332 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while bool do id := expr  | ; | reduce:stmt->id := expr
+
+<80> 023457912152219243338431220303742 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin while bool do stmt  | ; | reduce:stmt->while bool  do stmt
+
+<81> 023457912152219243338431216 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmt  | ; | reduce:stmts->stmt
+
+<82> 023457912152219243338431215 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmts  | ; | shift
+
+<83> 02345791215221924333843121522 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmts ;  | id | shift
+
+<84> 0234579121522192433384312152217 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmts ; id  | := | shift
+
+<85> 023457912152219243338431215221723 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmts ; id :=  | id | shift
+
+<86> 02345791215221924333843121522172328 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmts ; id := id  | * | reduce:factor->id
+
+<87> 02345791215221924333843121522172327 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmts ; id := factor  | * | reduce:term->factor
+
+<88> 02345791215221924333843121522172326 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmts ; id := term  | * | shift
+
+<89> 0234579121522192433384312152217232636 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmts ; id := term *  | num | shift
+
+<90> 023457912152219243338431215221723263629 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmts ; id := term * num  | end | reduce:factor->num
+
+<91> 023457912152219243338431215221723263641 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmts ; id := term * factor  | end | reduce:term->term * factor
+
+<92> 02345791215221924333843121522172326 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmts ; id := term  | end | reduce:expr->term
+
+<93> 02345791215221924333843121522172332 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmts ; id := expr  | end | reduce:stmt->id := expr
+
+<94> 0234579121522192433384312152231 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmts ; stmt  | end | reduce:stmts->stmts; stmt
+
+<95> 023457912152219243338431215 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin stmts  | end | reduce:optional_stmts->stmts
+
+<96> 023457912152219243338431214 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin optional_stmts  | end | shift
+
+<97> 02345791215221924333843121421 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else begin optional_stmts end  | end | reduce:compound_stmt->begin optional_stmts end
+
+<98> 0234579121522192433384318 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else compound_stmt  | end | reduce:stmt->compound_stmt
+
+<99> 0234579121522192433384344 |  program id ( id_lists ) ; begin stmts ; if bool then stmt else stmt  | end | reduce:stmt->if bool then stmt else stmt
+
+<100> 023457912152231 |  program id ( id_lists ) ; begin stmts ; stmt  | end | reduce:stmts->stmts; stmt
+
+<101> 02345791215 |  program id ( id_lists ) ; begin stmts  | end | reduce:optional_stmts->stmts
+
+<102> 02345791214 |  program id ( id_lists ) ; begin optional_stmts  | end | shift
+
+<103> 0234579121421 |  program id ( id_lists ) ; begin optional_stmts end  | . | reduce:compound_stmt->begin optional_stmts end
+
+<104> 023457911 |  program id ( id_lists ) ; compound_stmt  | . | shift
+
+<105> 02345791113 |  program id ( id_lists ) ; compound_stmt .  | $ | reduce:S->program id ( id_lists ); compound_stmt .
+
+<106> 01 |  S  | $ | accept
+

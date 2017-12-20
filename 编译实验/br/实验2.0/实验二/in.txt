@@ -1,0 +1,2 @@
+program test(a,b);begin x:=19+a*b;
+if x<y then y:=x else begin while x+y<x do y:=y+1; z:=z*7 end end.

@@ -1,0 +1,46 @@
+I0:
+S｀ -> ， S   , $
+S -> ， a A d   , $
+S -> ， b A c   , $
+S -> ， a e c   , $
+S -> ， b e d   , $
+
+I1:
+S｀ -> S ，   , $
+
+I2:
+S -> a ， A d   , $
+S -> a ， e c   , $
+A -> ， e   , d
+
+I3:
+S -> b ， A c   , $
+S -> b ， e d   , $
+A -> ， e   , c
+
+I4:
+S -> a A ， d   , $
+
+I5:
+S -> a e ， c   , $
+A -> e ，   , d
+
+I6:
+S -> b A ， c   , $
+
+I7:
+S -> b e ， d   , $
+A -> e ，   , c
+
+I8:
+S -> a A d ，   , $
+
+I9:
+S -> a e c ，   , $
+
+I10:
+S -> b A c ，   , $
+
+I11:
+S -> b e d ，   , $
+

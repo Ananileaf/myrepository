@@ -1,0 +1,7 @@
+var a,b,l,s;
+begin
+ a:=1;
+ b:=2;
+ l:=2*(a+b);
+ s:=a*b;
+end

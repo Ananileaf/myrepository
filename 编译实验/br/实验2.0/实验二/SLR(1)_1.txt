@@ -1,0 +1,17 @@
+(0)S'->S		(1)S->program id ( id_lists );  compound_stmt .
+(2)id_lists->id		(3)id_lists->id_lists , id
+(4)compound_stmt->begin optional_stmts end
+(5)optional_stmts->stmts (6)optional_stmts->¦Å
+(7)stmts->stmt 		(8)stmts->stmts; stmt 
+(9)stmt->id := expr 	(10)stmt->compound_stmt 
+(11)stmt->if bool then stmt (12)stmt->if bool then stmt else stmt 
+(13)stmt->while bool  do stmt(14)bool->expr < expr 
+(15)expr->expr + term 	(16)expr->term
+(17)term->term * factor 	(18)term->factor
+(19)factor->id 		(20)factor-> num
+
+FOLLOW(S)={$}		FOLLOW(id_lists)={",",")"}
+FOLLOW(compound_stmt)={.}	FOLOOW(optional_stmts)={end}
+FOLLOW(stmts)={end,;}		FOLLOW(stmt)={end,;,else}
+FOLLOW(bool)={then,else}	FOLLOW(expr)={<,+,end,;,else,then}
+FOLLOW(term)={*,<,+,end,;,else,then}	FOLLOW(factor)={*,<,+,end,;,else,then}

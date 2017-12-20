@@ -1,0 +1,24 @@
+< const , keyword >
+< PI , ident >
+< = , relation >
+error:undefine 3.14.4 
+< ; , NULL >
+< var , keyword >
+< r , ident >
+< , , NULL >
+< S , ident >
+< ; , NULL >
+< begin , keyword >
+< r , ident >
+< := , NULL >
+error:undefine 2a 
+< ; , NULL >
+< S , ident >
+< := , NULL >
+< r , ident >
+< * , multiplying-operator >
+< r , ident >
+< * , multiplying-operator >
+< PI , ident >
+< ; , NULL >
+< end , keyword >

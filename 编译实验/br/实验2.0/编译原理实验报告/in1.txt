@@ -1,0 +1,20 @@
+#include<stdio.h>
+int main()
+{
+int a,b,c,d;
+a=1;
+b=2.;
+c=3.56.7;
+d=.78;
+return 0;
+}
+
+if a>b continue;
+if (2m<=3967) return err.
+
+var a,b,c;
+begin readln(a,b,c)
+if a=b=c
+	then writeln(a)
+else if a=b<>c or a=c<>b or b=c<>a
+	then writeln(a)
