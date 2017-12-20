@@ -1,0 +1,11 @@
+git pull --rebase origin master
+git colone xxxx
+
+git fetch upstream
+git merge upstream/dev
+git push origin dev
+
+
+git add .
+git commit -am "xx"
+git push origin master
