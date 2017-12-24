@@ -128,7 +128,7 @@ int get_other(char &now)
 	char str[200] = "\0";
 	int i = 0;
 	str[i++] = now;
-	if(now == ')'||now=='('||now == ';'||now==',') Print(str,(char*)"NULL");
+	if(now == ')'||now=='('||now == ';'||now==','||now=='.') Print(str,(char*)"NULL");
 	else if(now == ':')//:=
 	{
 		char pre = now;

@@ -1,13 +1,8 @@
-const PI = 3.14.4;
-var r, S;
-begin     
-	r:=2a;
-	S:=r*r*PI;//ÇóÔ²Ãæ»ı   
+var a,b,c,x;
+begin
+  a:=1 ;
+  b:=2 ;
+  c:=3 ;
+  x:=(a+b)*c;
+end .
 
-{
-aafasfaas
-asf
-	
-}
-
-end
