@@ -1,10 +1,17 @@
-var a,b,l,s,n;
-begin
- a:=1;
- b:=2;
- l:=2*(a+b);
- s:=a*b ;
- begin
-  	n := s*s;
- end 
+const p = 2.0;
+var 
+	s,
+	n;
+begin     
+	s:=0;
+	n:=0;  
+	s:=n+s;   
+	while s<=10 do
+		begin       
+			n:=n+1;
+			s:=s+1/n;  //saffsasaf
+	{
+	sfafsa
+	a} 
+		end;     
 end .

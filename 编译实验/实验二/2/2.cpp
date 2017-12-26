@@ -847,6 +847,8 @@ void Print_action_table()
 		}
 	} 
 	
+	action_buf[0][now] = '\0'; 
+		
 	for(int i = 0; i < items_count;++i)
 	{
 		for(int j = 1; j <= mp_cnt; ++j)

@@ -465,6 +465,7 @@ void Print_action_table()
 			for(int i = now; i < now+l; ++i) tmp[i] = s[i-now];
 		}
 	} 
+	action_buf[0][now] = '\0'; 
 	
 	for(int i = 0; i < items_count;++i)
 	{
