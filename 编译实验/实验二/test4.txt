@@ -1,7 +1,5 @@
-0 S¡® ¡ú  S        $
-1 S ¡ú  a A d      $
-2 S ¡ú  b A c      $
-3 S ¡ú  a e c      $
-4 S ¡ú  b e d      $
-5 A ¡ú  e          $
+0 S' ¡ú  S        $
+1 S ¡ú  C C        $
+2 C ¡ú  c C        $
+3 C ¡ú  d          $
   

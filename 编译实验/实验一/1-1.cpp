@@ -3,6 +3,16 @@
 #include<cstring>
 #include<map>
 using namespace std;
+//文件
+FILE *fp_input;
+FILE *fp_work1; 
+
+
+//----------------------------------------------------------------------------------------------------------------------//
+//begin------------------------------------------------------------work1-----------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------//
+
+
 #define eof -1
 #define RELOP 1
 #define DIGIT 2
@@ -13,7 +23,7 @@ using namespace std;
 #define CHAR 7
 #define zhushi 8
 int const MAXN = 200;
-char buf[MAXN+2];//定义缓冲区大小 
+char work1_buf[MAXN+2];//定义缓冲区大小 
 int p = -1;
 
 char rollback;	//存放需要回退一步的字符 
@@ -75,7 +85,7 @@ void Print(char *str1,char *str2)
 		 return;
 	}
 	
-	printf("< %s , %s >\n",str1,str2);
+	fprintf(fp_work1,"< %s , %s >\n",str1,str2);
 }
 
 //获取下一个字符,模拟缓冲区 
@@ -89,18 +99,18 @@ char nextchar()
 	}
 	
 	//缓冲区 
-	if(buf[p] == eof)//eof 
+	if(work1_buf[p] == eof)//eof 
 	{
 		if(p>=MAXN)//缓冲区尾部,继续读入 
 		{
 			int i = 0;p = 0;
-			while((i<MAXN)&&(~scanf("%c",&buf[i]))) ++i; 
-			buf[i] = buf[i+1] = eof;//缓冲区尾部给eof 
+			while((i<MAXN)&&(~fscanf(fp_input,"%c",&work1_buf[i]))) ++i; 
+			work1_buf[i] = work1_buf[i+1] = eof;//缓冲区尾部给eof 
 		}
 		else ; 
 	} 
 	
-	return buf[p++];
+	return work1_buf[p++];
 }
 
 
@@ -118,7 +128,7 @@ void fail(char *str,char &now,int i)
 		 str[i++] = now;
 		 now = nextchar();
 	}
-	printf("error:undefine %s \n",str);
+	fprintf(fp_work1,"error:undefine %s \n",str);
 	mistake = true;
 }
 
@@ -340,10 +350,10 @@ void solve()
 	}
 }
 
-void init()
+void init_1()
 {
 	p = MAXN;
-	buf[p] = eof;
+	work1_buf[p] = eof;
 	rollback = eof;
 	KEYWORD.clear();
 	
@@ -355,12 +365,25 @@ void init()
 	KEYWORD[""] = KEYWORD[""] = KEYWORD[""] = KEYWORD[""] = KEYWORD[""] = KEYWORD[""] = true;
 	 
 }
+
+void work1()
+{
+	fp_input = fopen("input.txt","r+");
+	fp_work1 = fopen("work1.txt","w+");
+	init_1();
+	solve();
+	fclose(fp_input);
+	fclose(fp_work1);
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------//
+//end------------------------------------------------------------work1-------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------//
+
 int main()
 {
-	freopen("input.txt","r",stdin);
-	freopen("output.txt","w",stdout);
-	init();
-	solve();
+	work1();
 	return 0;
 }
 

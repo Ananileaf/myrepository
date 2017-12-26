@@ -2,31 +2,45 @@
 #define setI(x) freopen(x".txt","r",stdin);
 #define setO(x) freopen(x".txt","w",stdout);
 #define endl '\n'
+
+using namespace std;
+
+
+
+//文件读入读出
+FILE *fp_grammar;
+FILE *fp_action_table;
+FILE *fp_first;
+FILE *fp_project_set;
+FILE *fp_input ,*fp_input1 ,*fp_input2 ,*fp_input3;
+FILE *fp_output,*fp_output1,*fp_output2,*fp_output3;
+FILE *fp_test1 ,*fp_test2  ,*fp_test3;
+FILE *fp_work1,*fp_work2,*fp_work3;
+
+//----------------------------------------------------------------------------------------------------------------------//
+//begin------------------------------------------------------------work2-----------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------//
 #define acc 1
 #define error 0
 #define mov 2
 #define guiyue 3
-#define begin1 "S'"
-#define begin2 "S"
-using namespace std;
-
-int const Max_N = 1e6+5;
-int n;
-
-int G[300][300];//文法
-int length[300];//文法的长度
+#define begin1 "program'"
+#define begin2 "program"
+int const Max_N = 400;
+int G[Max_N][Max_N];//文法
+int length[Max_N];//文法的长度
 int number = 0;//文法的个数 
-bool is_end[300];//是否是终结符 
-bool empty[300];
+bool is_end[Max_N];//是否是终结符 
+bool empty[Max_N];
  
 //文法中出现的 单词到数字的映射 
-char String[300][80];//文法
+char String[Max_N][80];//文法
 map<string,int>mp;
-int cnt = 0; 
+int mp_cnt = 0; 
 
 //first集合 
-bool first[300][300];
-int buf[300];	//求first(beta a) 
+bool first[Max_N][Max_N];
+int buf[Max_N];	//求first(beta a) 
 int buf_size;
 
 //项目集
@@ -40,20 +54,24 @@ struct project
 	bool operator == (project & t) const{
 		return (t.num==num)&&(t.now==now)&&(t.search==search); 
 	 } 
-}items[300][300];
-int items_size[300]; 
+}items[Max_N][Max_N];
+int items_size[Max_N]; 
 int items_count;
-int trains[300][300];//trains[i][j]表示从Ii到Ij使用了String[trains[i][j]]; 
+int trains[Max_N][Max_N];//trains[i][j]表示从Ii到Ij使用了String[trains[i][j]]; 
 
 // 分析表
 struct action_table
 {
 	int op;
 	int next;
-}action[300][300];//第Ii个的输入为J 
+}action[Max_N][Max_N];//第Ii个的输入为J 
+int action_num[Max_N];//对应mp的符号在action表中的顺序 
+char action_buf[Max_N][1500];
+int action_p[Max_N];//对于buf的位置 
+
 
 //判断语句的输入 
-int read[300];
+int read[Max_N];
 int read_len = 0;
 
 //栈
@@ -61,30 +79,23 @@ stack<int>state;//状态栈
 stack<int>sign;//符号栈  
 
 //输出
-char anslysis[500][1100]; 
+char anslysis[Max_N*2][1500]; 
 int anslysis_len;
-char p[1100];//tmp 
+char pp[1500];//tmp 
 
-//文件读入读出
-FILE *fp_grammar;
-FILE *fp_action_table;
-FILE *fp_first;
-FILE *fp_project_set;
-FILE *fp_input ,*fp_input1 ,*fp_input2 ,*fp_input3;
-FILE *fp_output,*fp_output1,*fp_output2,*fp_output3;
-FILE *fp_test1 ,*fp_test2  ,*fp_test3;
+
 
 void get_grammar()//读入文法 
 {
 	//setI("pascal");
-	for(int i = 0; i < 200; ++i) is_end[i] = true;
+	for(int i = 0; i < Max_N; ++i) is_end[i] = true;
 	int now;
 	int i = 0;
 	while(~fscanf(fp_grammar,"%*s"))
 	{
 		while(true)
 		{
-			char str[50] = {'\0'};
+			char str[80] = {'\0'};
 			fscanf(fp_grammar,"%s",str);
 			
 			if(strcmp(str,"ε") == 0) empty[number] = true; 
@@ -98,8 +109,8 @@ void get_grammar()//读入文法
 			else if(strcmp(str,"→")==0) continue;
 			if(!mp[str]) 
 			{
-				mp[str] = ++cnt;
-				strcpy(String[cnt],str);
+				mp[str] = ++mp_cnt;
+				strcpy(String[mp_cnt],str);
 			}
 			now = mp[str];
 			
@@ -140,7 +151,7 @@ void get_first()
 				int t = mp["ε"];
 				if(is_end[q] == false)//非总结符 
 				{
-					for(int k = 1; k <= cnt; ++k)
+					for(int k = 1; k <= mp_cnt; ++k)
 					{
 						if(k==t) continue;//不能为ε 
 						if(first[q][k] == true && first[p][k] == false)
@@ -190,7 +201,7 @@ bool is_in(project tmp,int T)
 //获取搜索符 
 void get_search(project tmp)
 {
-	bool vis[200] = {false};//去重 
+	bool vis[Max_N] = {false};//去重 
 	buf_size = 0;
 	
 	int t = mp["ε"]; 
@@ -201,7 +212,7 @@ void get_search(project tmp)
 		if(is_end[p] == false)//非终结符 
 		{
 			//p的first集合 
-			for(int j = 0; j <= cnt; ++j)
+			for(int j = 0; j <= mp_cnt; ++j)
 			{
 				if(first[p][j]&&j!=t)
 				{
@@ -234,7 +245,7 @@ void e_closure(int T) //求项目集
 		{
 			int p = G[items[T][i].num][items[T][i].now];//·后面的单词 
 			if(is_end[p]) continue;//当前是总结符
-			for(int j = 1; j <= cnt; ++j)
+			for(int j = 1; j <= mp_cnt; ++j)
 			{
 				if(G[j][0] == p)
 				{
@@ -273,8 +284,8 @@ void make_set()
 	//初始化第一个项目集 
 	if(!mp["$"])
 	{
-		mp["$"] = ++cnt;
-		strcpy(String[cnt],"$");
+		mp["$"] = ++mp_cnt;
+		strcpy(String[mp_cnt],"$");
 	}
 	items[0][0] = project(0,1,mp["$"]);
 	items_size[0] = 1;
@@ -285,7 +296,7 @@ void make_set()
 	
 	for(int i = 0; i < items_count; ++i)//从第一个项目开始扩展 
 	{
-		for(int j = 1; j <= cnt; ++j)//暴力每个符号
+		for(int j = 1; j <= mp_cnt; ++j)//暴力每个符号
 		{
 			if(j==mp["ε"]) continue;
 			project tmp[200];
@@ -369,11 +380,11 @@ void get_action()
 
 void Print_first()
 {
-	for(int i = 1; i <= cnt; ++i)
+	for(int i = 1; i <= mp_cnt; ++i)
 	{
 		if(is_end[i]) continue; 
 		fprintf(fp_first,"First(%s) : ",String[i]);
-		for(int j = 1; j <= cnt ; ++j)
+		for(int j = 1; j <= mp_cnt ; ++j)
 		{
 			if(first[i][j])
 			fprintf(fp_first,"%s ",String[j]);
@@ -382,33 +393,145 @@ void Print_first()
 	 } 
 }
 
-void Print_action()
+void Print_action_table()
 {
 	//setO("action_table"); 
+	int tot = 1; 
+	int f[Max_N] = {0};
+	int t1 = mp["ε"];
+	int t2 = mp[begin1];
+	int t3; 
+	
+	for(int i = 1; i <= mp_cnt;++i)
+		if(is_end[i] == true && i!=t1)  f[tot] = i,action_num[i]= tot++;
+	t3 = tot-1;
+	for(int i = 1; i <= mp_cnt;++i)
+		if(is_end[i] == false && i!=t2) f[tot] = i,action_num[i] = tot++;
+	
+	
+	char tmp[1500];
+	memset(tmp,' ',sizeof(tmp)); 
+	memset(action_buf,' ',sizeof(action_buf));
+	tmp[500] = '\0';
+	
+	for(int i = 0; i < Max_N; ++i) 
+	{
+		action_buf[i][350] = '\0';
+		if(i==0) continue;
+		int num = i-1;
+		stack<int>s;
+		
+		while(num||s.empty())
+		{
+			s.push(num%10+'0');
+			num /= 10;
+		}
+		if(i)action_buf[i][2] = 'I';
+		int t = 3;
+		while(!s.empty())
+		{
+			action_buf[i][t++] = s.top();
+			s.pop();
+		 } 
+	}
+	
+	
+	
+	char s[20] = "status";
+	int l = strlen(s);
+	for(int i = 0; i < l; ++i) tmp[i] = s[i];
+	
+	int now = 8;
+	{
+		char s[] = "action";
+		int l = strlen(s);
+		for(int i = now; i < now+l; ++i) tmp[i] = s[i-now];
+	
+	}
+	
+	for(int i = 1; i <= tot; ++i)
+	{
+		int t = f[i];
+		action_p[t] = now;
+		int l = strlen(String[t]);
+		for(int j = 0; j < l; ++j)
+			action_buf[0][now++] = String[t][j];
+		now += 5;
+		if(t3 == i)
+		{
+			now += 2;
+			char s[] = "goto";
+			int l = strlen(s);
+			for(int i = now; i < now+l; ++i) tmp[i] = s[i-now];
+		}
+	} 
+	
 	for(int i = 0; i < items_count;++i)
 	{
-		fprintf(fp_action_table,"I%d :",i);
-		for(int j = 1; j <= cnt; ++j)
+		for(int j = 1; j <= mp_cnt; ++j)
 		{
 			if(action[i][j].op != error)
 			{
-				if(is_end[j])
+				int k = action_p[j];
+				
+				if(is_end[j] == true)
 				{
-					if(action[i][j].op == acc) 	fprintf(fp_action_table,"(%s , acc)  ",String[j]);
-					else fprintf(fp_action_table,"(%s , %c%d)  ",String[j],"sr"[action[i][j].op==guiyue],action[i][j].next);
+					if(action[i][j].op == acc) 	
+					{
+						char s[] = "acc";
+						int l = strlen(s);
+						for(int z = 0; z < l; ++z)
+							action_buf[i+1][k++] = s[z];
+					}
+					else 
+					{
+						if(action[i][j].op == guiyue) action_buf[i+1][k++] = 'r';
+						else action_buf[i+1][k++] = 's';
+						int num = action[i][j].next;
+						stack<int>s;
+						while(s.empty()||num)
+						{
+							s.push(num%10+'0');
+							num /= 10;
+						}
+						while(s.empty() == false)
+						{
+							action_buf[i+1][k++] = s.top();
+							s.pop();
+						}
+						
+						
+					}
 				}
 				else
 				{
-					fprintf(fp_action_table,"(%s , %d)  ",String[j],action[i][j].next);
+					
+					int num = action[i][j].next;
+					stack<int>s;
+					while(s.empty()||num)
+					{
+						s.push(num%10+'0');
+						num /= 10;
+					}
+					while(s.empty() == false)
+					{
+						action_buf[i+1][k++] = s.top();
+						s.pop();
+					}
 				}		
 			}
 		}
-		fprintf(fp_action_table,"\n");
 	}
+	
+	fprintf(fp_action_table,"%s\n",tmp);
+	for(int i = 0; i <= items_count; ++i) 
+		fprintf(fp_action_table,"%s\n",action_buf[i]);
+	
 }
 void Print_set()
 {
 	//setO("project_set");
+
 	for(int i = 0; i < items_count; ++i)
 	{
 		fprintf(fp_project_set,"I%d:\n",i);
@@ -429,8 +552,8 @@ void Print_set()
 
 void Print_state()
 {
-	memset(p,' ',sizeof(p));
-	p[900] = '\0';
+	memset(pp,' ',sizeof(pp));
+	pp[1000] = '\0';
 	
 	int i = 0;
 	stack<int> t1 = state;
@@ -449,11 +572,11 @@ void Print_state()
 		}
 		while(!s.empty())
 		{
-			p[i++] = s.top();
+			pp[i++] = s.top();
 			s.pop();
 		} 
 		
-		t2.pop(),p[i++] = ' ';
+		t2.pop(),pp[i++] = ' ';
 	}
 } 
 
@@ -468,65 +591,91 @@ void Print_sign()
 		int t =  t2.top();
 		t2.pop();
 		int len = strlen(String[t]);
-		for(int j = 0; j < len; ++j) p[i++] = String[t][j];	
-		p[i++] = ' ';
+		for(int j = 0; j < len; ++j) pp[i++] = String[t][j];	
+		pp[i++] = ' ';
 	}
 } 
 
 void Print_input(int q)
 {
-	int i = 250;
+	int i = 350;
 	for(;q<read_len; ++q)
 	{
 		int t = read[q];
 		int len = strlen(String[t]);
-		for(int j = 0; j < len; ++j) p[i++] = String[t][j];
-		p[i++] = ' ';
+		for(int j = 0; j < len; ++j) pp[i++] = String[t][j];
+		pp[i++] = ' ';
 	}
 }
 void Print_ACTION(int q)
 {
-	int i = 500;
+	int i = 750;
 	
 	if(q==-1)
 	{
 		char s[] = "mov";
 		int len = strlen(s);
-		for(int j = 0; j < len; ++j) p[i++] = s[j];
+		for(int j = 0; j < len; ++j) pp[i++] = s[j];
 		return ;
 	}
 	else if(q==-2)
 	{	
 		char s[] = "acc";
 		int len = strlen(s);
-		for(int j = 0; j < len; ++j) p[i++] = s[j];
+		for(int j = 0; j < len; ++j) pp[i++] = s[j];
 		return ;
 		
 	}
 	int t = G[q][0];
 	int len = strlen(String[t]);
-	for(int j = 0; j < len; ++j) p[i++] = String[t][j];
+	for(int j = 0; j < len; ++j) pp[i++] = String[t][j];
 	char s[] = "→" ;
-	p[i++] = s[0];
-	p[i++] = s[1];
+	pp[i++] = ' ';
+	pp[i++] = s[0];
+	pp[i++] = s[1];
+	pp[i++] = ' ';
 	for(int k = 1; k < length[q]; ++k)
 	{
 		int t = G[q][k];
 		int len = strlen(String[t]);
-		for(int j = 0; j < len; ++j) p[i++] = String[t][j];
+		for(int j = 0; j < len; ++j) pp[i++] = String[t][j];
+		pp[i++] = ' ';
 	}
 }
 
 void Print_anslysis()
 {
-	for(int i = 0; i < anslysis_len; ++i) 
-		fprintf(fp_output,"%s\n",anslysis[i]);
+	fprintf(fp_work2,"%s\n",anslysis[0]);
+	for(int i = 1; i < anslysis_len; ++i) 
+	{
+		char tmp[16] = "(     ";
+		{
+			int num = i;
+			int j = 1;
+			stack<int>s;
+			s.push(num%10 + '0');
+			num/=10;
+			while(num)
+			{
+				s.push( num%10 + '0');
+				num/=10;
+			}
+			while(!s.empty())
+			{
+				tmp[j++] = s.top();
+				s.pop();
+			} 
+			tmp[j++] = ')';
+		}
+		fprintf(fp_work2,"%s%s\n",tmp,anslysis[i]);
+	}
+		
 }
 void Print_all()
 {
 	Print_first();
 	Print_set();
-	Print_action();
+	Print_action_table();
 	Print_anslysis();
 }
 
@@ -546,7 +695,7 @@ void read1()
 void read2()
 {
 //	setI("input1");
-	char str[20];
+	char str[30];
 	while(~fscanf(fp_input1,"%s",str)) 
 		read[read_len++] = mp[str];
 	read[read_len++] = mp["$"];
@@ -562,7 +711,7 @@ void cal()
 	
 	state.push(0);
 	sign.push(mp["$"]);
-	char s[1100] = "状态栈                                                                符号栈                                                                                                                                                                              输入串                                                                                                                                                                                                                                                     ACTION  ";
+	char s[1500] = "       状态栈                                                                符号栈                                                                                                                                                                                                                                                                                   输入串                                                                                                                                                                                                                                                                                                                                                                                                         ACTION ";
 	strcpy(anslysis[anslysis_len++],s);
 	
 	int i = 0;
@@ -581,7 +730,8 @@ void cal()
 		
 		if(op==error)
 		{
-			fprintf(fp_output,"error!");
+			char p[] = "error!";
+			strcpy(anslysis[anslysis_len++],p);
 			ERROR = true;
 			continue;
 		}
@@ -619,7 +769,7 @@ void cal()
 			
 			
 		}
-		strcpy(anslysis[anslysis_len++],p);
+		strcpy(anslysis[anslysis_len++],pp);
 	}
 	
 } 
@@ -627,52 +777,51 @@ void open_file()
 {
 	//文件读入读出
 	fp_grammar         = fopen("pascal.txt","r+");
-
+//	fp_grammar         = fopen("test3.txt","r+");
 	
 	fp_input           = fopen("input.txt","r+");
-	fp_input1          = fopen("input1.txt","r+");
-	fp_input2          = fopen("input2.txt","r+");
-	fp_input3          = fopen("input3.txt","r+");
+	//fp_input1          = fopen("input1.txt","r+");
+	//fp_input2          = fopen("input2.txt","r+");
+	//fp_input3          = fopen("input3.txt","r+");
 	
 	fp_action_table    = fopen("action_table.txt","w+");
 	fp_first           = fopen("first.txt","w+");
 	fp_project_set     = fopen("project_set.txt","w+");
 	
-	fp_output          = fopen("output.txt","w+");
-	fp_output1         = fopen("output1.txt","w+");
-	fp_output2         = fopen("output2.txt","w+");
-	fp_output3         = fopen("output3.txt","w+");
+	fp_work2           = fopen("work2.txt","w+");
+	//fp_output1         = fopen("output1.txt","w+");
+	//fp_output2         = fopen("output2.txt","w+");
+	//fp_output3         = fopen("output3.txt","w+");
 	
-	fp_test1           = fopen("test1.txt","w+");
-	fp_test2           = fopen("test2.txt","w+");
-	fp_test3           = fopen("test3.txt","w+");
-	}
+	//fp_test1           = fopen("test1.txt","r+");
+	//fp_test2           = fopen("test2.txt","r+");
+	//fp_test3           = fopen("test3.txt","r+");
+}
 
 void close_file()
 {
 	fclose(fp_grammar);
 	
-	fclose(fp_input1);
-	fclose(fp_input2);
-	fclose(fp_input3);
+//	fclose(fp_input1);
+//	fclose(fp_input2);
+//	fclose(fp_input3);
 	
 	fclose(fp_action_table);
 	fclose(fp_first);
 	fclose(fp_project_set);
 	
-	fclose(fp_output);
-	fclose(fp_output1);
-	fclose(fp_output2);
-	fclose(fp_output3);
+	fclose(fp_work2);
+//	fclose(fp_output1);
+//	fclose(fp_output2);
+//	fclose(fp_output3);
 	
-	fclose(fp_test1);
-	fclose(fp_test2);
-	fclose(fp_test3);
+//	fclose(fp_test1);
+//	fclose(fp_test2);
+//	fclose(fp_test3);
 	
 }
 
-
-int main()
+void work2()
 {
 	open_file();
 	get_grammar();
@@ -682,6 +831,18 @@ int main()
 	cal();
 	Print_all();
 	close_file();
+}
+
+//----------------------------------------------------------------------------------------------------------------------//
+//end------------------------------------------------------------work2-------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------//
+
+
+
+
+int main()
+{
+	work2();
 	return 0;
 }
 

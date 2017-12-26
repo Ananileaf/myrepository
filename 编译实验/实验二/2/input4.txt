@@ -1,0 +1,13 @@
+const PI = 3.14;
+var r, S;
+begin     
+	r := 2 * a;
+	S := r * r * PI;//ÇóÔ²Ãæ»ý   
+
+{
+aafasfaas
+asf
+	
+}
+
+end .

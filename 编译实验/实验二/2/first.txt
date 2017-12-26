@@ -1,0 +1,17 @@
+First(program') : . const ident var procedure call begin if while 
+First(program) : . const ident var procedure call begin if while 
+First(block) : const ¦Å ident var procedure call begin if while 
+First(const-decl) : const ¦Å 
+First(var-decl) : ¦Å var 
+First(proc-decl) : ¦Å procedure 
+First(statement) : ¦Å ident call begin if while 
+First(const-assignment-list) : ident 
+First(ident-list) : ident 
+First(expression) : ident number + - ( 
+First(statement-list) : ; ¦Å ident call begin if while 
+First(condition) : ident number odd + - ( 
+First(relation) : = <> < > <= >= 
+First(term) : ident number ( 
+First(adding-operator) : + - 
+First(factor) : ident number ( 
+First(multiplying-operator) : * / 

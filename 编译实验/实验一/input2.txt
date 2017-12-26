@@ -4,4 +4,4 @@ begin
  b:=2;
  l:=2*(a+b);
  s:=a*b;
-end
+end .

@@ -1,6 +1,5 @@
-(-1) S'    ¡ú    S    $
-(0)  S   ¡ú   program  $
-(1)  program   ¡ú   block  .  $ 
+(0)  program'   ¡ú   program  $
+(1)  program    ¡ú   block  .  $ 
 
 (2)  block   ¡ú   const-decl var-decl proc-decl statement  $
 
@@ -30,16 +29,33 @@
 (20) statement-list   ¡ú   statement-list ; statement  $
 
 (21) condition   ¡ú   expression relation expression  $
+(22) condition   ¡ú   odd expression $
 
-(22) expression   ¡ú   term  $
-(23) expression   ¡ú   adding-operator term   $
-(24) expression   ¡ú   expression adding-operator term  $
+(23) relation   ¡ú   =  $
+(24) relation   ¡ú   <>  $
+(25) relation   ¡ú   <  $
+(26) relation   ¡ú   >  $
+(27) relation   ¡ú   <=  $
+(28) relation   ¡ú   >=  $ 
 
-(25) term   ¡ú   factor  $
-(26) term   ¡ú   term multiplying-operator factor  $
 
-(27) factor   ¡ú   ident  $
-(28) factor   ¡ú   number  $
-(29) factor   ¡ú   ( expression )  $
+(29) expression   ¡ú   term  $
+(30) expression   ¡ú   adding-operator term   $
+(31) expression   ¡ú   expression adding-operator term  $
+
+
+(32) adding-operator  ¡ú   +  $ 
+(33) adding-operator  ¡ú   -  $
+
+(34) term   ¡ú   factor  $
+(35) term   ¡ú   term multiplying-operator factor  $
+
+(36) multiplying-operator   ¡ú   *  $
+(27) multiplying-operator   ¡ú   /  $
+
+
+(38) factor   ¡ú   ident  $
+(39) factor   ¡ú   number  $
+(40) factor   ¡ú   ( expression )  $
 
 

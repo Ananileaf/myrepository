@@ -1,0 +1,61 @@
+(0)  program'   ¡ú   program  $
+(1)  program    ¡ú   block  .  $ 
+
+(2)  block   ¡ú   const-decl var-decl proc-decl statement  $
+
+(3)  const-decl   ¡ú   const const-assignment-list ;   $
+(4)  const-decl   ¡ú   ¦Å  $
+
+(5)  const-assignment-list   ¡ú   ident = number  $
+(6)  const-assignment-list   ¡ú   const-assignment-list , ident = number  $
+
+(7)  var-decl   ¡ú   var ident-list ;   $
+(8)  var-decl   ¡ú   ¦Å  $
+
+(9)  ident-list   ¡ú   ident  $
+(10) ident-list   ¡ú   ident-list , ident  $
+
+(11) proc-decl   ¡ú   proc-decl procedure ident ; block ;   $
+(12) proc-decl   ¡ú   ¦Å $
+
+(13) statement   ¡ú   ident := expression  $
+(14) statement   ¡ú   call ident  $
+(15) statement   ¡ú   begin statement-list end  $
+(16) statement   ¡ú   if condition then statement  $
+(17) statement   ¡ú   while condition do statement  $
+(18) statement   ¡ú   ¦Å  $
+
+(19) statement-list   ¡ú   statement  $
+(20) statement-list   ¡ú   statement-list ; statement  $
+
+(21) condition   ¡ú   expression relation expression  $
+(22) condition   ¡ú   odd expression $
+
+(23) relation   ¡ú   =  $
+(24) relation   ¡ú   <>  $
+(25) relation   ¡ú   <  $
+(26) relation   ¡ú   >  $
+(27) relation   ¡ú   <=  $
+(28) relation   ¡ú   >=  $ 
+
+
+(29) expression   ¡ú   term  $
+(30) expression   ¡ú   adding-operator term   $
+(31) expression   ¡ú   expression adding-operator term  $
+
+
+(32) adding-operator  ¡ú   +  $ 
+(33) adding-operator  ¡ú   -  $
+
+(34) term   ¡ú   factor  $
+(35) term   ¡ú   term multiplying-operator factor  $
+
+(36) multiplying-operator   ¡ú   *  $
+(27) multiplying-operator   ¡ú   /  $
+
+
+(38) factor   ¡ú   ident  $
+(39) factor   ¡ú   number  $
+(40) factor   ¡ú   ( expression )  $
+
+
