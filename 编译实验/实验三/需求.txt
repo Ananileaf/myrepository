@@ -1,0 +1,77 @@
+表达式翻译
+
+赋值
+1.(13) 
+statement   →   ident := expression 
+gen(top.get(ident.lexme) '=' expression.addr)
+
+2.(5)
+const-assignment-list   →   ident = number  $
+gen(top.get(ident.lexme) '=' top.get(number.lexme))
+
+3.(6)
+const-assignment-list   →   const-assignment-list , ident = number  $
+gen(top.get(ident.lexme) '=' top.get(number.lexme))
+
+
++-*/
+4.(31)
+expression   →   expression1 adding-operator term
+expression.addr = new Temp()
+gen(expression.addr ‘=’expression1.addr adding-operator term.addr
+
+
+5.(35)
+term   →   term1 multiplying-operator factor
+term.addr = new Temp()
+gen(term.addr = term.addr multiplying-operator factor.addr)
+
+
+6.(29)
+expression   →   term  $
+expression.addr = top.get(id.lexeme)
+
+7.(30)
+expression   →   adding-operator term   $
+expression.addr = new Temp()
+gen(E.addr '=' 'minus' term.addr)
+
+8.(34)
+term   →   factor
+term.addr = factor.addr
+
+9.(38)
+factor   →   ident  $
+factor.addr = ident.addr
+
+10.(39)
+factor   →   number  $
+factor.addr = number.addr
+
+11.(40)
+factor   →   ( expression )  $
+factor.addr = expression.addr
+
+
+12.(32) 
+adding-operator  →   +  $ 
+adding-operator.addr = +
+
+13.(33) 
+adding-operator  →   -  $
+adding-operator.addr = -
+
+14.(36) 
+multiplying-operator   →   *  $
+multiplying-operator.addr = *
+
+15.(37) 
+multiplying-operator   →   /  $
+multiplying-operator.addr = /
+
+
+
+
+
+
+
