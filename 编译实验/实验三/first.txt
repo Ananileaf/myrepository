@@ -10,6 +10,7 @@ First(ident-list) : ident
 First(expression) : ident number + - ( 
 First(statement-list) : ; ¦Å ident call begin if while 
 First(condition) : ident number odd + - ( 
+First(M) : ¦Å 
 First(relation) : = <> < > <= >= 
 First(term) : ident number ( 
 First(adding-operator) : + - 

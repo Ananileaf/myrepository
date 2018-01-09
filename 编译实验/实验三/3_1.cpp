@@ -1247,7 +1247,6 @@ stack<int>oper;
 stack<int>term;
 stack<int>factor;
 
-
 char work3_p[Max_N][100];
 int p_len = 0;
 

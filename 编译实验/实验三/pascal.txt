@@ -21,8 +21,8 @@
 (13) statement   ¡ú   ident := expression  $
 (14) statement   ¡ú   call ident  $
 (15) statement   ¡ú   begin statement-list end  $
-(16) statement   ¡ú   if condition then statement  $
-(17) statement   ¡ú   while condition do statement  $
+(16) statement   ¡ú   if  condition then M statement  M   $
+(17) statement   ¡ú   while M condition M do statement M  $
 (18) statement   ¡ú   ¦Å  $
 
 (19) statement-list   ¡ú   statement  $
@@ -57,5 +57,5 @@
 (38) factor   ¡ú   ident  $
 (39) factor   ¡ú   number  $
 (40) factor   ¡ú   ( expression )  $
-
+(41) M   ¡ú   ¦Å  $
 

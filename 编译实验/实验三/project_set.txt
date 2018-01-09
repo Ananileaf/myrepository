@@ -117,8 +117,8 @@ proc-decl -> proc-decl ， procedure ident ; block ;   , procedure
 statement -> ， ident := expression   , .
 statement -> ， call ident   , .
 statement -> ， begin statement-list end   , .
-statement -> ， if condition then statement   , .
-statement -> ， while condition do statement   , .
+statement -> ， if condition then M statement M   , .
+statement -> ， while M condition M do statement M   , .
 statement -> ， ε   , .
 
 I11:
@@ -179,20 +179,20 @@ statement-list -> ， statement-list ; statement   , end
 statement -> ， ident := expression   , end
 statement -> ， call ident   , end
 statement -> ， begin statement-list end   , end
-statement -> ， if condition then statement   , end
-statement -> ， while condition do statement   , end
+statement -> ， if condition then M statement M   , end
+statement -> ， while M condition M do statement M   , end
 statement -> ， ε   , end
 statement-list -> ， statement   , ;
 statement-list -> ， statement-list ; statement   , ;
 statement -> ， ident := expression   , ;
 statement -> ， call ident   , ;
 statement -> ， begin statement-list end   , ;
-statement -> ， if condition then statement   , ;
-statement -> ， while condition do statement   , ;
+statement -> ， if condition then M statement M   , ;
+statement -> ， while M condition M do statement M   , ;
 statement -> ， ε   , ;
 
 I21:
-statement -> if ， condition then statement   , .
+statement -> if ， condition then M statement M   , .
 condition -> ， expression relation expression   , then
 condition -> ， odd expression   , then
 expression -> ， term   , =
@@ -277,89 +277,13 @@ factor -> ， number   , -
 factor -> ， ( expression )   , -
 
 I22:
-statement -> while ， condition do statement   , .
-condition -> ， expression relation expression   , do
-condition -> ， odd expression   , do
-expression -> ， term   , =
-expression -> ， term   , <>
-expression -> ， term   , <
-expression -> ， term   , >
-expression -> ， term   , <=
-expression -> ， term   , >=
-expression -> ， adding-operator term   , =
-expression -> ， adding-operator term   , <>
-expression -> ， adding-operator term   , <
-expression -> ， adding-operator term   , >
-expression -> ， adding-operator term   , <=
-expression -> ， adding-operator term   , >=
-expression -> ， expression adding-operator term   , =
-expression -> ， expression adding-operator term   , <>
-expression -> ， expression adding-operator term   , <
-expression -> ， expression adding-operator term   , >
-expression -> ， expression adding-operator term   , <=
-expression -> ， expression adding-operator term   , >=
-term -> ， factor   , =
-term -> ， term multiplying-operator factor   , =
-term -> ， factor   , <>
-term -> ， term multiplying-operator factor   , <>
-term -> ， factor   , <
-term -> ， term multiplying-operator factor   , <
-term -> ， factor   , >
-term -> ， term multiplying-operator factor   , >
-term -> ， factor   , <=
-term -> ， term multiplying-operator factor   , <=
-term -> ， factor   , >=
-term -> ， term multiplying-operator factor   , >=
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-expression -> ， term   , +
-expression -> ， term   , -
-expression -> ， adding-operator term   , +
-expression -> ， adding-operator term   , -
-expression -> ， expression adding-operator term   , +
-expression -> ， expression adding-operator term   , -
-factor -> ， ident   , =
-factor -> ， number   , =
-factor -> ， ( expression )   , =
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-factor -> ， ident   , <>
-factor -> ， number   , <>
-factor -> ， ( expression )   , <>
-factor -> ， ident   , <
-factor -> ， number   , <
-factor -> ， ( expression )   , <
-factor -> ， ident   , >
-factor -> ， number   , >
-factor -> ， ( expression )   , >
-factor -> ， ident   , <=
-factor -> ， number   , <=
-factor -> ， ( expression )   , <=
-factor -> ， ident   , >=
-factor -> ， number   , >=
-factor -> ， ( expression )   , >=
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
+statement -> while ， M condition M do statement M   , .
+M -> ， ε   , ident
+M -> ， ε   , number
+M -> ， ε   , odd
+M -> ， ε   , +
+M -> ， ε   , -
+M -> ， ε   , (
 
 I23:
 var-decl -> var ident-list ; ，   , procedure
@@ -457,16 +381,16 @@ statement-list -> ， statement-list ; statement   , end
 statement -> ， ident := expression   , end
 statement -> ， call ident   , end
 statement -> ， begin statement-list end   , end
-statement -> ， if condition then statement   , end
-statement -> ， while condition do statement   , end
+statement -> ， if condition then M statement M   , end
+statement -> ， while M condition M do statement M   , end
 statement -> ， ε   , end
 statement-list -> ， statement   , ;
 statement-list -> ， statement-list ; statement   , ;
 statement -> ， ident := expression   , ;
 statement -> ， call ident   , ;
 statement -> ， begin statement-list end   , ;
-statement -> ， if condition then statement   , ;
-statement -> ， while condition do statement   , ;
+statement -> ， if condition then M statement M   , ;
+statement -> ， while M condition M do statement M   , ;
 statement -> ， ε   , ;
 
 I34:
@@ -475,8 +399,8 @@ statement-list -> statement-list ， ; statement   , end
 statement-list -> statement-list ， ; statement   , ;
 
 I35:
-statement -> if ， condition then statement   , end
-statement -> if ， condition then statement   , ;
+statement -> if ， condition then M statement M   , end
+statement -> if ， condition then M statement M   , ;
 condition -> ， expression relation expression   , then
 condition -> ， odd expression   , then
 expression -> ， term   , =
@@ -561,90 +485,14 @@ factor -> ， number   , -
 factor -> ， ( expression )   , -
 
 I36:
-statement -> while ， condition do statement   , end
-statement -> while ， condition do statement   , ;
-condition -> ， expression relation expression   , do
-condition -> ， odd expression   , do
-expression -> ， term   , =
-expression -> ， term   , <>
-expression -> ， term   , <
-expression -> ， term   , >
-expression -> ， term   , <=
-expression -> ， term   , >=
-expression -> ， adding-operator term   , =
-expression -> ， adding-operator term   , <>
-expression -> ， adding-operator term   , <
-expression -> ， adding-operator term   , >
-expression -> ， adding-operator term   , <=
-expression -> ， adding-operator term   , >=
-expression -> ， expression adding-operator term   , =
-expression -> ， expression adding-operator term   , <>
-expression -> ， expression adding-operator term   , <
-expression -> ， expression adding-operator term   , >
-expression -> ， expression adding-operator term   , <=
-expression -> ， expression adding-operator term   , >=
-term -> ， factor   , =
-term -> ， term multiplying-operator factor   , =
-term -> ， factor   , <>
-term -> ， term multiplying-operator factor   , <>
-term -> ， factor   , <
-term -> ， term multiplying-operator factor   , <
-term -> ， factor   , >
-term -> ， term multiplying-operator factor   , >
-term -> ， factor   , <=
-term -> ， term multiplying-operator factor   , <=
-term -> ， factor   , >=
-term -> ， term multiplying-operator factor   , >=
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-expression -> ， term   , +
-expression -> ， term   , -
-expression -> ， adding-operator term   , +
-expression -> ， adding-operator term   , -
-expression -> ， expression adding-operator term   , +
-expression -> ， expression adding-operator term   , -
-factor -> ， ident   , =
-factor -> ， number   , =
-factor -> ， ( expression )   , =
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-factor -> ， ident   , <>
-factor -> ， number   , <>
-factor -> ， ( expression )   , <>
-factor -> ， ident   , <
-factor -> ， number   , <
-factor -> ， ( expression )   , <
-factor -> ， ident   , >
-factor -> ， number   , >
-factor -> ， ( expression )   , >
-factor -> ， ident   , <=
-factor -> ， number   , <=
-factor -> ， ( expression )   , <=
-factor -> ， ident   , >=
-factor -> ， number   , >=
-factor -> ， ( expression )   , >=
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
+statement -> while ， M condition M do statement M   , end
+statement -> while ， M condition M do statement M   , ;
+M -> ， ε   , ident
+M -> ， ε   , number
+M -> ， ε   , odd
+M -> ， ε   , +
+M -> ， ε   , -
+M -> ， ε   , (
 
 I37:
 factor -> ident ，   , =
@@ -718,7 +566,7 @@ adding-operator -> ， -   , number
 adding-operator -> ， -   , (
 
 I40:
-statement -> if condition ， then statement   , .
+statement -> if condition ， then M statement M   , .
 
 I41:
 condition -> odd ， expression   , then
@@ -924,2129 +772,7 @@ factor -> ， number   , -
 factor -> ， ( expression )   , -
 
 I48:
-condition -> expression ， relation expression   , do
-expression -> expression ， adding-operator term   , =
-expression -> expression ， adding-operator term   , <>
-expression -> expression ， adding-operator term   , <
-expression -> expression ， adding-operator term   , >
-expression -> expression ， adding-operator term   , <=
-expression -> expression ， adding-operator term   , >=
-expression -> expression ， adding-operator term   , +
-expression -> expression ， adding-operator term   , -
-relation -> ， =   , ident
-relation -> ， =   , number
-relation -> ， =   , +
-relation -> ， =   , -
-relation -> ， =   , (
-relation -> ， <>   , ident
-relation -> ， <>   , number
-relation -> ， <>   , +
-relation -> ， <>   , -
-relation -> ， <>   , (
-relation -> ， <   , ident
-relation -> ， <   , number
-relation -> ， <   , +
-relation -> ， <   , -
-relation -> ， <   , (
-relation -> ， >   , ident
-relation -> ， >   , number
-relation -> ， >   , +
-relation -> ， >   , -
-relation -> ， >   , (
-relation -> ， <=   , ident
-relation -> ， <=   , number
-relation -> ， <=   , +
-relation -> ， <=   , -
-relation -> ， <=   , (
-relation -> ， >=   , ident
-relation -> ， >=   , number
-relation -> ， >=   , +
-relation -> ， >=   , -
-relation -> ， >=   , (
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-
-I49:
-statement -> while condition ， do statement   , .
-
-I50:
-condition -> odd ， expression   , do
-expression -> ， term   , do
-expression -> ， adding-operator term   , do
-expression -> ， expression adding-operator term   , do
-term -> ， factor   , do
-term -> ， term multiplying-operator factor   , do
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-expression -> ， term   , +
-expression -> ， term   , -
-expression -> ， adding-operator term   , +
-expression -> ， adding-operator term   , -
-expression -> ， expression adding-operator term   , +
-expression -> ， expression adding-operator term   , -
-factor -> ， ident   , do
-factor -> ， number   , do
-factor -> ， ( expression )   , do
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I51:
-ident-list -> ident-list , ident ，   , ;
-ident-list -> ident-list , ident ，   , ,
-
-I52:
-const-assignment-list -> const-assignment-list , ident = ， number   , ;
-const-assignment-list -> const-assignment-list , ident = ， number   , ,
-
-I53:
-factor -> ident ，   , .
-factor -> ident ，   , *
-factor -> ident ，   , /
-factor -> ident ，   , +
-factor -> ident ，   , -
-
-I54:
-factor -> number ，   , .
-factor -> number ，   , *
-factor -> number ，   , /
-factor -> number ，   , +
-factor -> number ，   , -
-
-I55:
-statement -> ident := expression ，   , .
-expression -> expression ， adding-operator term   , .
-expression -> expression ， adding-operator term   , +
-expression -> expression ， adding-operator term   , -
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-
-I56:
-expression -> term ，   , .
-term -> term ， multiplying-operator factor   , .
-expression -> term ，   , +
-expression -> term ，   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I57:
-expression -> adding-operator ， term   , .
-expression -> adding-operator ， term   , +
-expression -> adding-operator ， term   , -
-term -> ， factor   , .
-term -> ， term multiplying-operator factor   , .
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , .
-factor -> ， number   , .
-factor -> ， ( expression )   , .
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-
-I58:
-term -> factor ，   , .
-term -> factor ，   , *
-term -> factor ，   , /
-term -> factor ，   , +
-term -> factor ，   , -
-
-I59:
-factor -> ( ， expression )   , .
-factor -> ( ， expression )   , *
-factor -> ( ， expression )   , /
-factor -> ( ， expression )   , +
-factor -> ( ， expression )   , -
-expression -> ， term   , )
-expression -> ， adding-operator term   , )
-expression -> ， expression adding-operator term   , )
-term -> ， factor   , )
-term -> ， term multiplying-operator factor   , )
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-expression -> ， term   , +
-expression -> ， term   , -
-expression -> ， adding-operator term   , +
-expression -> ， adding-operator term   , -
-expression -> ， expression adding-operator term   , +
-expression -> ， expression adding-operator term   , -
-factor -> ， ident   , )
-factor -> ， number   , )
-factor -> ， ( expression )   , )
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I60:
-proc-decl -> proc-decl procedure ident ; ， block ;   , ident
-proc-decl -> proc-decl procedure ident ; ， block ;   , call
-proc-decl -> proc-decl procedure ident ; ， block ;   , begin
-proc-decl -> proc-decl procedure ident ; ， block ;   , if
-proc-decl -> proc-decl procedure ident ; ， block ;   , while
-proc-decl -> proc-decl procedure ident ; ， block ;   , .
-proc-decl -> proc-decl procedure ident ; ， block ;   , procedure
-block -> ， const-decl var-decl proc-decl statement   , ;
-const-decl -> ， const const-assignment-list ;   , var
-const-decl -> ， const const-assignment-list ;   , procedure
-const-decl -> ， const const-assignment-list ;   , ident
-const-decl -> ， const const-assignment-list ;   , call
-const-decl -> ， const const-assignment-list ;   , begin
-const-decl -> ， const const-assignment-list ;   , if
-const-decl -> ， const const-assignment-list ;   , while
-const-decl -> ， const const-assignment-list ;   , ;
-const-decl -> ， ε   , var
-const-decl -> ， ε   , procedure
-const-decl -> ， ε   , ident
-const-decl -> ， ε   , call
-const-decl -> ， ε   , begin
-const-decl -> ， ε   , if
-const-decl -> ， ε   , while
-const-decl -> ， ε   , ;
-
-I61:
-statement -> ident := ， expression   , end
-statement -> ident := ， expression   , ;
-expression -> ， term   , end
-expression -> ， adding-operator term   , end
-expression -> ， expression adding-operator term   , end
-expression -> ， term   , ;
-expression -> ， adding-operator term   , ;
-expression -> ， expression adding-operator term   , ;
-term -> ， factor   , end
-term -> ， term multiplying-operator factor   , end
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-expression -> ， term   , +
-expression -> ， term   , -
-expression -> ， adding-operator term   , +
-expression -> ， adding-operator term   , -
-expression -> ， expression adding-operator term   , +
-expression -> ， expression adding-operator term   , -
-term -> ， factor   , ;
-term -> ， term multiplying-operator factor   , ;
-factor -> ， ident   , end
-factor -> ， number   , end
-factor -> ， ( expression )   , end
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , ;
-factor -> ， number   , ;
-factor -> ， ( expression )   , ;
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I62:
-statement -> call ident ，   , end
-statement -> call ident ，   , ;
-
-I63:
-statement -> begin statement-list ， end   , end
-statement -> begin statement-list ， end   , ;
-statement-list -> statement-list ， ; statement   , end
-statement-list -> statement-list ， ; statement   , ;
-
-I64:
-statement-list -> statement-list ; ， statement   , end
-statement-list -> statement-list ; ， statement   , ;
-statement -> ， ident := expression   , end
-statement -> ， call ident   , end
-statement -> ， begin statement-list end   , end
-statement -> ， if condition then statement   , end
-statement -> ， while condition do statement   , end
-statement -> ， ε   , end
-statement -> ， ident := expression   , ;
-statement -> ， call ident   , ;
-statement -> ， begin statement-list end   , ;
-statement -> ， if condition then statement   , ;
-statement -> ， while condition do statement   , ;
-statement -> ， ε   , ;
-
-I65:
-statement -> begin statement-list end ，   , .
-
-I66:
-statement -> if condition ， then statement   , end
-statement -> if condition ， then statement   , ;
-
-I67:
-statement -> while condition ， do statement   , end
-statement -> while condition ， do statement   , ;
-
-I68:
-relation -> = ，   , ident
-relation -> = ，   , number
-relation -> = ，   , +
-relation -> = ，   , -
-relation -> = ，   , (
-
-I69:
-condition -> expression relation ， expression   , then
-expression -> ， term   , then
-expression -> ， adding-operator term   , then
-expression -> ， expression adding-operator term   , then
-term -> ， factor   , then
-term -> ， term multiplying-operator factor   , then
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-expression -> ， term   , +
-expression -> ， term   , -
-expression -> ， adding-operator term   , +
-expression -> ， adding-operator term   , -
-expression -> ， expression adding-operator term   , +
-expression -> ， expression adding-operator term   , -
-factor -> ， ident   , then
-factor -> ， number   , then
-factor -> ， ( expression )   , then
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I70:
-relation -> <> ，   , ident
-relation -> <> ，   , number
-relation -> <> ，   , +
-relation -> <> ，   , -
-relation -> <> ，   , (
-
-I71:
-relation -> < ，   , ident
-relation -> < ，   , number
-relation -> < ，   , +
-relation -> < ，   , -
-relation -> < ，   , (
-
-I72:
-relation -> > ，   , ident
-relation -> > ，   , number
-relation -> > ，   , +
-relation -> > ，   , -
-relation -> > ，   , (
-
-I73:
-relation -> <= ，   , ident
-relation -> <= ，   , number
-relation -> <= ，   , +
-relation -> <= ，   , -
-relation -> <= ，   , (
-
-I74:
-relation -> >= ，   , ident
-relation -> >= ，   , number
-relation -> >= ，   , +
-relation -> >= ，   , -
-relation -> >= ，   , (
-
-I75:
-expression -> expression adding-operator ， term   , =
-expression -> expression adding-operator ， term   , <>
-expression -> expression adding-operator ， term   , <
-expression -> expression adding-operator ， term   , >
-expression -> expression adding-operator ， term   , <=
-expression -> expression adding-operator ， term   , >=
-expression -> expression adding-operator ， term   , +
-expression -> expression adding-operator ， term   , -
-term -> ， factor   , =
-term -> ， term multiplying-operator factor   , =
-term -> ， factor   , <>
-term -> ， term multiplying-operator factor   , <>
-term -> ， factor   , <
-term -> ， term multiplying-operator factor   , <
-term -> ， factor   , >
-term -> ， term multiplying-operator factor   , >
-term -> ， factor   , <=
-term -> ， term multiplying-operator factor   , <=
-term -> ， factor   , >=
-term -> ， term multiplying-operator factor   , >=
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , =
-factor -> ， number   , =
-factor -> ， ( expression )   , =
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-factor -> ， ident   , <>
-factor -> ， number   , <>
-factor -> ， ( expression )   , <>
-factor -> ， ident   , <
-factor -> ， number   , <
-factor -> ， ( expression )   , <
-factor -> ， ident   , >
-factor -> ， number   , >
-factor -> ， ( expression )   , >
-factor -> ， ident   , <=
-factor -> ， number   , <=
-factor -> ， ( expression )   , <=
-factor -> ， ident   , >=
-factor -> ， number   , >=
-factor -> ， ( expression )   , >=
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-
-I76:
-statement -> if condition then ， statement   , .
-statement -> ， ident := expression   , .
-statement -> ， call ident   , .
-statement -> ， begin statement-list end   , .
-statement -> ， if condition then statement   , .
-statement -> ， while condition do statement   , .
-statement -> ， ε   , .
-
-I77:
-factor -> ident ，   , then
-factor -> ident ，   , *
-factor -> ident ，   , /
-factor -> ident ，   , +
-factor -> ident ，   , -
-
-I78:
-factor -> number ，   , then
-factor -> number ，   , *
-factor -> number ，   , /
-factor -> number ，   , +
-factor -> number ，   , -
-
-I79:
-condition -> odd expression ，   , then
-expression -> expression ， adding-operator term   , then
-expression -> expression ， adding-operator term   , +
-expression -> expression ， adding-operator term   , -
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-
-I80:
-expression -> term ，   , then
-term -> term ， multiplying-operator factor   , then
-expression -> term ，   , +
-expression -> term ，   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I81:
-expression -> adding-operator ， term   , then
-expression -> adding-operator ， term   , +
-expression -> adding-operator ， term   , -
-term -> ， factor   , then
-term -> ， term multiplying-operator factor   , then
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , then
-factor -> ， number   , then
-factor -> ， ( expression )   , then
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-
-I82:
-term -> factor ，   , then
-term -> factor ，   , *
-term -> factor ，   , /
-term -> factor ，   , +
-term -> factor ，   , -
-
-I83:
-factor -> ( ， expression )   , then
-factor -> ( ， expression )   , *
-factor -> ( ， expression )   , /
-factor -> ( ， expression )   , +
-factor -> ( ， expression )   , -
-expression -> ， term   , )
-expression -> ， adding-operator term   , )
-expression -> ， expression adding-operator term   , )
-term -> ， factor   , )
-term -> ， term multiplying-operator factor   , )
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-expression -> ， term   , +
-expression -> ， term   , -
-expression -> ， adding-operator term   , +
-expression -> ， adding-operator term   , -
-expression -> ， expression adding-operator term   , +
-expression -> ， expression adding-operator term   , -
-factor -> ， ident   , )
-factor -> ， number   , )
-factor -> ， ( expression )   , )
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I84:
-term -> term multiplying-operator ， factor   , =
-term -> term multiplying-operator ， factor   , <>
-term -> term multiplying-operator ， factor   , <
-term -> term multiplying-operator ， factor   , >
-term -> term multiplying-operator ， factor   , <=
-term -> term multiplying-operator ， factor   , >=
-term -> term multiplying-operator ， factor   , *
-term -> term multiplying-operator ， factor   , /
-term -> term multiplying-operator ， factor   , +
-term -> term multiplying-operator ， factor   , -
-factor -> ， ident   , =
-factor -> ， number   , =
-factor -> ， ( expression )   , =
-factor -> ， ident   , <>
-factor -> ， number   , <>
-factor -> ， ( expression )   , <>
-factor -> ， ident   , <
-factor -> ， number   , <
-factor -> ， ( expression )   , <
-factor -> ， ident   , >
-factor -> ， number   , >
-factor -> ， ( expression )   , >
-factor -> ， ident   , <=
-factor -> ， number   , <=
-factor -> ， ( expression )   , <=
-factor -> ， ident   , >=
-factor -> ， number   , >=
-factor -> ， ( expression )   , >=
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I85:
-multiplying-operator -> * ，   , ident
-multiplying-operator -> * ，   , number
-multiplying-operator -> * ，   , (
-
-I86:
-multiplying-operator -> / ，   , ident
-multiplying-operator -> / ，   , number
-multiplying-operator -> / ，   , (
-
-I87:
-expression -> adding-operator term ，   , =
-expression -> adding-operator term ，   , <>
-expression -> adding-operator term ，   , <
-expression -> adding-operator term ，   , >
-expression -> adding-operator term ，   , <=
-expression -> adding-operator term ，   , >=
-expression -> adding-operator term ，   , +
-expression -> adding-operator term ，   , -
-term -> term ， multiplying-operator factor   , =
-term -> term ， multiplying-operator factor   , <>
-term -> term ， multiplying-operator factor   , <
-term -> term ， multiplying-operator factor   , >
-term -> term ， multiplying-operator factor   , <=
-term -> term ， multiplying-operator factor   , >=
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I88:
-factor -> ident ，   , )
-factor -> ident ，   , *
-factor -> ident ，   , /
-factor -> ident ，   , +
-factor -> ident ，   , -
-
-I89:
-factor -> number ，   , )
-factor -> number ，   , *
-factor -> number ，   , /
-factor -> number ，   , +
-factor -> number ，   , -
-
-I90:
-factor -> ( expression ， )   , =
-factor -> ( expression ， )   , <>
-factor -> ( expression ， )   , <
-factor -> ( expression ， )   , >
-factor -> ( expression ， )   , <=
-factor -> ( expression ， )   , >=
-factor -> ( expression ， )   , *
-factor -> ( expression ， )   , /
-factor -> ( expression ， )   , +
-factor -> ( expression ， )   , -
-expression -> expression ， adding-operator term   , )
-expression -> expression ， adding-operator term   , +
-expression -> expression ， adding-operator term   , -
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-
-I91:
-expression -> term ，   , )
-term -> term ， multiplying-operator factor   , )
-expression -> term ，   , +
-expression -> term ，   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I92:
-expression -> adding-operator ， term   , )
-expression -> adding-operator ， term   , +
-expression -> adding-operator ， term   , -
-term -> ， factor   , )
-term -> ， term multiplying-operator factor   , )
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , )
-factor -> ， number   , )
-factor -> ， ( expression )   , )
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-
-I93:
-term -> factor ，   , )
-term -> factor ，   , *
-term -> factor ，   , /
-term -> factor ，   , +
-term -> factor ，   , -
-
-I94:
-factor -> ( ， expression )   , )
-factor -> ( ， expression )   , *
-factor -> ( ， expression )   , /
-factor -> ( ， expression )   , +
-factor -> ( ， expression )   , -
-expression -> ， term   , )
-expression -> ， adding-operator term   , )
-expression -> ， expression adding-operator term   , )
-term -> ， factor   , )
-term -> ， term multiplying-operator factor   , )
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-expression -> ， term   , +
-expression -> ， term   , -
-expression -> ， adding-operator term   , +
-expression -> ， adding-operator term   , -
-expression -> ， expression adding-operator term   , +
-expression -> ， expression adding-operator term   , -
-factor -> ， ident   , )
-factor -> ， number   , )
-factor -> ， ( expression )   , )
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I95:
-condition -> expression relation ， expression   , do
-expression -> ， term   , do
-expression -> ， adding-operator term   , do
-expression -> ， expression adding-operator term   , do
-term -> ， factor   , do
-term -> ， term multiplying-operator factor   , do
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-expression -> ， term   , +
-expression -> ， term   , -
-expression -> ， adding-operator term   , +
-expression -> ， adding-operator term   , -
-expression -> ， expression adding-operator term   , +
-expression -> ， expression adding-operator term   , -
-factor -> ， ident   , do
-factor -> ， number   , do
-factor -> ， ( expression )   , do
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I96:
-statement -> while condition do ， statement   , .
-statement -> ， ident := expression   , .
-statement -> ， call ident   , .
-statement -> ， begin statement-list end   , .
-statement -> ， if condition then statement   , .
-statement -> ， while condition do statement   , .
-statement -> ， ε   , .
-
-I97:
-factor -> ident ，   , do
-factor -> ident ，   , *
-factor -> ident ，   , /
-factor -> ident ，   , +
-factor -> ident ，   , -
-
-I98:
-factor -> number ，   , do
-factor -> number ，   , *
-factor -> number ，   , /
-factor -> number ，   , +
-factor -> number ，   , -
-
-I99:
-condition -> odd expression ，   , do
-expression -> expression ， adding-operator term   , do
-expression -> expression ， adding-operator term   , +
-expression -> expression ， adding-operator term   , -
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-
-I100:
-expression -> term ，   , do
-term -> term ， multiplying-operator factor   , do
-expression -> term ，   , +
-expression -> term ，   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I101:
-expression -> adding-operator ， term   , do
-expression -> adding-operator ， term   , +
-expression -> adding-operator ， term   , -
-term -> ， factor   , do
-term -> ， term multiplying-operator factor   , do
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , do
-factor -> ， number   , do
-factor -> ， ( expression )   , do
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-
-I102:
-term -> factor ，   , do
-term -> factor ，   , *
-term -> factor ，   , /
-term -> factor ，   , +
-term -> factor ，   , -
-
-I103:
-factor -> ( ， expression )   , do
-factor -> ( ， expression )   , *
-factor -> ( ， expression )   , /
-factor -> ( ， expression )   , +
-factor -> ( ， expression )   , -
-expression -> ， term   , )
-expression -> ， adding-operator term   , )
-expression -> ， expression adding-operator term   , )
-term -> ， factor   , )
-term -> ， term multiplying-operator factor   , )
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-expression -> ， term   , +
-expression -> ， term   , -
-expression -> ， adding-operator term   , +
-expression -> ， adding-operator term   , -
-expression -> ， expression adding-operator term   , +
-expression -> ， expression adding-operator term   , -
-factor -> ， ident   , )
-factor -> ， number   , )
-factor -> ， ( expression )   , )
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I104:
-const-assignment-list -> const-assignment-list , ident = number ，   , ;
-const-assignment-list -> const-assignment-list , ident = number ，   , ,
-
-I105:
-expression -> expression adding-operator ， term   , .
-expression -> expression adding-operator ， term   , +
-expression -> expression adding-operator ， term   , -
-term -> ， factor   , .
-term -> ， term multiplying-operator factor   , .
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , .
-factor -> ， number   , .
-factor -> ， ( expression )   , .
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-
-I106:
-term -> term multiplying-operator ， factor   , .
-term -> term multiplying-operator ， factor   , *
-term -> term multiplying-operator ， factor   , /
-term -> term multiplying-operator ， factor   , +
-term -> term multiplying-operator ， factor   , -
-factor -> ， ident   , .
-factor -> ， number   , .
-factor -> ， ( expression )   , .
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I107:
-expression -> adding-operator term ，   , .
-expression -> adding-operator term ，   , +
-expression -> adding-operator term ，   , -
-term -> term ， multiplying-operator factor   , .
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I108:
-factor -> ( expression ， )   , .
-factor -> ( expression ， )   , *
-factor -> ( expression ， )   , /
-factor -> ( expression ， )   , +
-factor -> ( expression ， )   , -
-expression -> expression ， adding-operator term   , )
-expression -> expression ， adding-operator term   , +
-expression -> expression ， adding-operator term   , -
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-
-I109:
-proc-decl -> proc-decl procedure ident ; block ， ;   , ident
-proc-decl -> proc-decl procedure ident ; block ， ;   , call
-proc-decl -> proc-decl procedure ident ; block ， ;   , begin
-proc-decl -> proc-decl procedure ident ; block ， ;   , if
-proc-decl -> proc-decl procedure ident ; block ， ;   , while
-proc-decl -> proc-decl procedure ident ; block ， ;   , .
-proc-decl -> proc-decl procedure ident ; block ， ;   , procedure
-
-I110:
-block -> const-decl ， var-decl proc-decl statement   , ;
-var-decl -> ， var ident-list ;   , procedure
-var-decl -> ， var ident-list ;   , ident
-var-decl -> ， var ident-list ;   , call
-var-decl -> ， var ident-list ;   , begin
-var-decl -> ， var ident-list ;   , if
-var-decl -> ， var ident-list ;   , while
-var-decl -> ， var ident-list ;   , ;
-var-decl -> ， ε   , procedure
-var-decl -> ， ε   , ident
-var-decl -> ， ε   , call
-var-decl -> ， ε   , begin
-var-decl -> ， ε   , if
-var-decl -> ， ε   , while
-var-decl -> ， ε   , ;
-
-I111:
-const-decl -> const ， const-assignment-list ;   , var
-const-decl -> const ， const-assignment-list ;   , procedure
-const-decl -> const ， const-assignment-list ;   , ident
-const-decl -> const ， const-assignment-list ;   , call
-const-decl -> const ， const-assignment-list ;   , begin
-const-decl -> const ， const-assignment-list ;   , if
-const-decl -> const ， const-assignment-list ;   , while
-const-decl -> const ， const-assignment-list ;   , ;
-const-assignment-list -> ， ident = number   , ;
-const-assignment-list -> ， const-assignment-list , ident = number   , ;
-const-assignment-list -> ， ident = number   , ,
-const-assignment-list -> ， const-assignment-list , ident = number   , ,
-
-I112:
-factor -> ident ，   , end
-factor -> ident ，   , ;
-factor -> ident ，   , *
-factor -> ident ，   , /
-factor -> ident ，   , +
-factor -> ident ，   , -
-
-I113:
-factor -> number ，   , end
-factor -> number ，   , ;
-factor -> number ，   , *
-factor -> number ，   , /
-factor -> number ，   , +
-factor -> number ，   , -
-
-I114:
-statement -> ident := expression ，   , end
-statement -> ident := expression ，   , ;
-expression -> expression ， adding-operator term   , end
-expression -> expression ， adding-operator term   , ;
-expression -> expression ， adding-operator term   , +
-expression -> expression ， adding-operator term   , -
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-
-I115:
-expression -> term ，   , end
-expression -> term ，   , ;
-term -> term ， multiplying-operator factor   , end
-expression -> term ，   , +
-expression -> term ，   , -
-term -> term ， multiplying-operator factor   , ;
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I116:
-expression -> adding-operator ， term   , end
-expression -> adding-operator ， term   , ;
-expression -> adding-operator ， term   , +
-expression -> adding-operator ， term   , -
-term -> ， factor   , end
-term -> ， term multiplying-operator factor   , end
-term -> ， factor   , ;
-term -> ， term multiplying-operator factor   , ;
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , end
-factor -> ， number   , end
-factor -> ， ( expression )   , end
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-factor -> ， ident   , ;
-factor -> ， number   , ;
-factor -> ， ( expression )   , ;
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-
-I117:
-term -> factor ，   , end
-term -> factor ，   , ;
-term -> factor ，   , *
-term -> factor ，   , /
-term -> factor ，   , +
-term -> factor ，   , -
-
-I118:
-factor -> ( ， expression )   , end
-factor -> ( ， expression )   , ;
-factor -> ( ， expression )   , *
-factor -> ( ， expression )   , /
-factor -> ( ， expression )   , +
-factor -> ( ， expression )   , -
-expression -> ， term   , )
-expression -> ， adding-operator term   , )
-expression -> ， expression adding-operator term   , )
-term -> ， factor   , )
-term -> ， term multiplying-operator factor   , )
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-expression -> ， term   , +
-expression -> ， term   , -
-expression -> ， adding-operator term   , +
-expression -> ， adding-operator term   , -
-expression -> ， expression adding-operator term   , +
-expression -> ， expression adding-operator term   , -
-factor -> ， ident   , )
-factor -> ， number   , )
-factor -> ， ( expression )   , )
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I119:
-statement -> begin statement-list end ，   , end
-statement -> begin statement-list end ，   , ;
-
-I120:
-statement-list -> statement-list ; statement ，   , end
-statement-list -> statement-list ; statement ，   , ;
-
-I121:
-statement -> if condition then ， statement   , end
-statement -> if condition then ， statement   , ;
-statement -> ， ident := expression   , end
-statement -> ， call ident   , end
-statement -> ， begin statement-list end   , end
-statement -> ， if condition then statement   , end
-statement -> ， while condition do statement   , end
-statement -> ， ε   , end
-statement -> ， ident := expression   , ;
-statement -> ， call ident   , ;
-statement -> ， begin statement-list end   , ;
-statement -> ， if condition then statement   , ;
-statement -> ， while condition do statement   , ;
-statement -> ， ε   , ;
-
-I122:
-statement -> while condition do ， statement   , end
-statement -> while condition do ， statement   , ;
-statement -> ， ident := expression   , end
-statement -> ， call ident   , end
-statement -> ， begin statement-list end   , end
-statement -> ， if condition then statement   , end
-statement -> ， while condition do statement   , end
-statement -> ， ε   , end
-statement -> ， ident := expression   , ;
-statement -> ， call ident   , ;
-statement -> ， begin statement-list end   , ;
-statement -> ， if condition then statement   , ;
-statement -> ， while condition do statement   , ;
-statement -> ， ε   , ;
-
-I123:
-condition -> expression relation expression ，   , then
-expression -> expression ， adding-operator term   , then
-expression -> expression ， adding-operator term   , +
-expression -> expression ， adding-operator term   , -
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-
-I124:
-expression -> expression adding-operator term ，   , =
-expression -> expression adding-operator term ，   , <>
-expression -> expression adding-operator term ，   , <
-expression -> expression adding-operator term ，   , >
-expression -> expression adding-operator term ，   , <=
-expression -> expression adding-operator term ，   , >=
-expression -> expression adding-operator term ，   , +
-expression -> expression adding-operator term ，   , -
-term -> term ， multiplying-operator factor   , =
-term -> term ， multiplying-operator factor   , <>
-term -> term ， multiplying-operator factor   , <
-term -> term ， multiplying-operator factor   , >
-term -> term ， multiplying-operator factor   , <=
-term -> term ， multiplying-operator factor   , >=
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I125:
-statement -> if condition then statement ，   , .
-
-I126:
-expression -> expression adding-operator ， term   , then
-expression -> expression adding-operator ， term   , +
-expression -> expression adding-operator ， term   , -
-term -> ， factor   , then
-term -> ， term multiplying-operator factor   , then
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , then
-factor -> ， number   , then
-factor -> ， ( expression )   , then
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-
-I127:
-term -> term multiplying-operator ， factor   , then
-term -> term multiplying-operator ， factor   , *
-term -> term multiplying-operator ， factor   , /
-term -> term multiplying-operator ， factor   , +
-term -> term multiplying-operator ， factor   , -
-factor -> ， ident   , then
-factor -> ， number   , then
-factor -> ， ( expression )   , then
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I128:
-expression -> adding-operator term ，   , then
-expression -> adding-operator term ，   , +
-expression -> adding-operator term ，   , -
-term -> term ， multiplying-operator factor   , then
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I129:
-factor -> ( expression ， )   , then
-factor -> ( expression ， )   , *
-factor -> ( expression ， )   , /
-factor -> ( expression ， )   , +
-factor -> ( expression ， )   , -
-expression -> expression ， adding-operator term   , )
-expression -> expression ， adding-operator term   , +
-expression -> expression ， adding-operator term   , -
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-
-I130:
-term -> term multiplying-operator factor ，   , =
-term -> term multiplying-operator factor ，   , <>
-term -> term multiplying-operator factor ，   , <
-term -> term multiplying-operator factor ，   , >
-term -> term multiplying-operator factor ，   , <=
-term -> term multiplying-operator factor ，   , >=
-term -> term multiplying-operator factor ，   , *
-term -> term multiplying-operator factor ，   , /
-term -> term multiplying-operator factor ，   , +
-term -> term multiplying-operator factor ，   , -
-
-I131:
-expression -> expression adding-operator ， term   , )
-expression -> expression adding-operator ， term   , +
-expression -> expression adding-operator ， term   , -
-term -> ， factor   , )
-term -> ， term multiplying-operator factor   , )
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , )
-factor -> ， number   , )
-factor -> ， ( expression )   , )
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-
-I132:
-factor -> ( expression ) ，   , =
-factor -> ( expression ) ，   , <>
-factor -> ( expression ) ，   , <
-factor -> ( expression ) ，   , >
-factor -> ( expression ) ，   , <=
-factor -> ( expression ) ，   , >=
-factor -> ( expression ) ，   , *
-factor -> ( expression ) ，   , /
-factor -> ( expression ) ，   , +
-factor -> ( expression ) ，   , -
-
-I133:
-term -> term multiplying-operator ， factor   , )
-term -> term multiplying-operator ， factor   , *
-term -> term multiplying-operator ， factor   , /
-term -> term multiplying-operator ， factor   , +
-term -> term multiplying-operator ， factor   , -
-factor -> ， ident   , )
-factor -> ， number   , )
-factor -> ， ( expression )   , )
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I134:
-expression -> adding-operator term ，   , )
-expression -> adding-operator term ，   , +
-expression -> adding-operator term ，   , -
-term -> term ， multiplying-operator factor   , )
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I135:
-factor -> ( expression ， )   , )
-factor -> ( expression ， )   , *
-factor -> ( expression ， )   , /
-factor -> ( expression ， )   , +
-factor -> ( expression ， )   , -
-expression -> expression ， adding-operator term   , )
-expression -> expression ， adding-operator term   , +
-expression -> expression ， adding-operator term   , -
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-
-I136:
-condition -> expression relation expression ，   , do
-expression -> expression ， adding-operator term   , do
-expression -> expression ， adding-operator term   , +
-expression -> expression ， adding-operator term   , -
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-
-I137:
-statement -> while condition do statement ，   , .
-
-I138:
-expression -> expression adding-operator ， term   , do
-expression -> expression adding-operator ， term   , +
-expression -> expression adding-operator ， term   , -
-term -> ， factor   , do
-term -> ， term multiplying-operator factor   , do
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , do
-factor -> ， number   , do
-factor -> ， ( expression )   , do
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-
-I139:
-term -> term multiplying-operator ， factor   , do
-term -> term multiplying-operator ， factor   , *
-term -> term multiplying-operator ， factor   , /
-term -> term multiplying-operator ， factor   , +
-term -> term multiplying-operator ， factor   , -
-factor -> ， ident   , do
-factor -> ， number   , do
-factor -> ， ( expression )   , do
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I140:
-expression -> adding-operator term ，   , do
-expression -> adding-operator term ，   , +
-expression -> adding-operator term ，   , -
-term -> term ， multiplying-operator factor   , do
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I141:
-factor -> ( expression ， )   , do
-factor -> ( expression ， )   , *
-factor -> ( expression ， )   , /
-factor -> ( expression ， )   , +
-factor -> ( expression ， )   , -
-expression -> expression ， adding-operator term   , )
-expression -> expression ， adding-operator term   , +
-expression -> expression ， adding-operator term   , -
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-
-I142:
-expression -> expression adding-operator term ，   , .
-expression -> expression adding-operator term ，   , +
-expression -> expression adding-operator term ，   , -
-term -> term ， multiplying-operator factor   , .
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I143:
-term -> term multiplying-operator factor ，   , .
-term -> term multiplying-operator factor ，   , *
-term -> term multiplying-operator factor ，   , /
-term -> term multiplying-operator factor ，   , +
-term -> term multiplying-operator factor ，   , -
-
-I144:
-factor -> ( expression ) ，   , .
-factor -> ( expression ) ，   , *
-factor -> ( expression ) ，   , /
-factor -> ( expression ) ，   , +
-factor -> ( expression ) ，   , -
-
-I145:
-proc-decl -> proc-decl procedure ident ; block ; ，   , ident
-proc-decl -> proc-decl procedure ident ; block ; ，   , call
-proc-decl -> proc-decl procedure ident ; block ; ，   , begin
-proc-decl -> proc-decl procedure ident ; block ; ，   , if
-proc-decl -> proc-decl procedure ident ; block ; ，   , while
-proc-decl -> proc-decl procedure ident ; block ; ，   , .
-proc-decl -> proc-decl procedure ident ; block ; ，   , procedure
-
-I146:
-block -> const-decl var-decl ， proc-decl statement   , ;
-proc-decl -> ， proc-decl procedure ident ; block ;   , ident
-proc-decl -> ， proc-decl procedure ident ; block ;   , call
-proc-decl -> ， proc-decl procedure ident ; block ;   , begin
-proc-decl -> ， proc-decl procedure ident ; block ;   , if
-proc-decl -> ， proc-decl procedure ident ; block ;   , while
-proc-decl -> ， proc-decl procedure ident ; block ;   , ;
-proc-decl -> ， ε   , ident
-proc-decl -> ， ε   , call
-proc-decl -> ， ε   , begin
-proc-decl -> ， ε   , if
-proc-decl -> ， ε   , while
-proc-decl -> ， ε   , ;
-proc-decl -> ， proc-decl procedure ident ; block ;   , procedure
-proc-decl -> ， ε   , procedure
-
-I147:
-var-decl -> var ， ident-list ;   , procedure
-var-decl -> var ， ident-list ;   , ident
-var-decl -> var ， ident-list ;   , call
-var-decl -> var ， ident-list ;   , begin
-var-decl -> var ， ident-list ;   , if
-var-decl -> var ， ident-list ;   , while
-var-decl -> var ， ident-list ;   , ;
-ident-list -> ， ident   , ;
-ident-list -> ， ident-list , ident   , ;
-ident-list -> ， ident   , ,
-ident-list -> ， ident-list , ident   , ,
-
-I148:
-const-decl -> const const-assignment-list ， ;   , var
-const-decl -> const const-assignment-list ， ;   , procedure
-const-decl -> const const-assignment-list ， ;   , ident
-const-decl -> const const-assignment-list ， ;   , call
-const-decl -> const const-assignment-list ， ;   , begin
-const-decl -> const const-assignment-list ， ;   , if
-const-decl -> const const-assignment-list ， ;   , while
-const-decl -> const const-assignment-list ， ;   , ;
-const-assignment-list -> const-assignment-list ， , ident = number   , ;
-const-assignment-list -> const-assignment-list ， , ident = number   , ,
-
-I149:
-expression -> expression adding-operator ， term   , end
-expression -> expression adding-operator ， term   , ;
-expression -> expression adding-operator ， term   , +
-expression -> expression adding-operator ， term   , -
-term -> ， factor   , end
-term -> ， term multiplying-operator factor   , end
-term -> ， factor   , ;
-term -> ， term multiplying-operator factor   , ;
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , end
-factor -> ， number   , end
-factor -> ， ( expression )   , end
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-factor -> ， ident   , ;
-factor -> ， number   , ;
-factor -> ， ( expression )   , ;
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-
-I150:
-term -> term multiplying-operator ， factor   , end
-term -> term multiplying-operator ， factor   , ;
-term -> term multiplying-operator ， factor   , *
-term -> term multiplying-operator ， factor   , /
-term -> term multiplying-operator ， factor   , +
-term -> term multiplying-operator ， factor   , -
-factor -> ， ident   , end
-factor -> ， number   , end
-factor -> ， ( expression )   , end
-factor -> ， ident   , ;
-factor -> ， number   , ;
-factor -> ， ( expression )   , ;
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I151:
-expression -> adding-operator term ，   , end
-expression -> adding-operator term ，   , ;
-expression -> adding-operator term ，   , +
-expression -> adding-operator term ，   , -
-term -> term ， multiplying-operator factor   , end
-term -> term ， multiplying-operator factor   , ;
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I152:
-factor -> ( expression ， )   , end
-factor -> ( expression ， )   , ;
-factor -> ( expression ， )   , *
-factor -> ( expression ， )   , /
-factor -> ( expression ， )   , +
-factor -> ( expression ， )   , -
-expression -> expression ， adding-operator term   , )
-expression -> expression ， adding-operator term   , +
-expression -> expression ， adding-operator term   , -
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-
-I153:
-statement -> if condition then statement ，   , end
-statement -> if condition then statement ，   , ;
-
-I154:
-statement -> while condition do statement ，   , end
-statement -> while condition do statement ，   , ;
-
-I155:
-expression -> expression adding-operator term ，   , then
-expression -> expression adding-operator term ，   , +
-expression -> expression adding-operator term ，   , -
-term -> term ， multiplying-operator factor   , then
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I156:
-term -> term multiplying-operator factor ，   , then
-term -> term multiplying-operator factor ，   , *
-term -> term multiplying-operator factor ，   , /
-term -> term multiplying-operator factor ，   , +
-term -> term multiplying-operator factor ，   , -
-
-I157:
-factor -> ( expression ) ，   , then
-factor -> ( expression ) ，   , *
-factor -> ( expression ) ，   , /
-factor -> ( expression ) ，   , +
-factor -> ( expression ) ，   , -
-
-I158:
-expression -> expression adding-operator term ，   , )
-expression -> expression adding-operator term ，   , +
-expression -> expression adding-operator term ，   , -
-term -> term ， multiplying-operator factor   , )
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I159:
-term -> term multiplying-operator factor ，   , )
-term -> term multiplying-operator factor ，   , *
-term -> term multiplying-operator factor ，   , /
-term -> term multiplying-operator factor ，   , +
-term -> term multiplying-operator factor ，   , -
-
-I160:
-factor -> ( expression ) ，   , )
-factor -> ( expression ) ，   , *
-factor -> ( expression ) ，   , /
-factor -> ( expression ) ，   , +
-factor -> ( expression ) ，   , -
-
-I161:
-expression -> expression adding-operator term ，   , do
-expression -> expression adding-operator term ，   , +
-expression -> expression adding-operator term ，   , -
-term -> term ， multiplying-operator factor   , do
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I162:
-term -> term multiplying-operator factor ，   , do
-term -> term multiplying-operator factor ，   , *
-term -> term multiplying-operator factor ，   , /
-term -> term multiplying-operator factor ，   , +
-term -> term multiplying-operator factor ，   , -
-
-I163:
-factor -> ( expression ) ，   , do
-factor -> ( expression ) ，   , *
-factor -> ( expression ) ，   , /
-factor -> ( expression ) ，   , +
-factor -> ( expression ) ，   , -
-
-I164:
-block -> const-decl var-decl proc-decl ， statement   , ;
-proc-decl -> proc-decl ， procedure ident ; block ;   , ident
-proc-decl -> proc-decl ， procedure ident ; block ;   , call
-proc-decl -> proc-decl ， procedure ident ; block ;   , begin
-proc-decl -> proc-decl ， procedure ident ; block ;   , if
-proc-decl -> proc-decl ， procedure ident ; block ;   , while
-proc-decl -> proc-decl ， procedure ident ; block ;   , ;
-proc-decl -> proc-decl ， procedure ident ; block ;   , procedure
-statement -> ， ident := expression   , ;
-statement -> ， call ident   , ;
-statement -> ， begin statement-list end   , ;
-statement -> ， if condition then statement   , ;
-statement -> ， while condition do statement   , ;
-statement -> ， ε   , ;
-
-I165:
-var-decl -> var ident-list ， ;   , procedure
-var-decl -> var ident-list ， ;   , ident
-var-decl -> var ident-list ， ;   , call
-var-decl -> var ident-list ， ;   , begin
-var-decl -> var ident-list ， ;   , if
-var-decl -> var ident-list ， ;   , while
-var-decl -> var ident-list ， ;   , ;
-ident-list -> ident-list ， , ident   , ;
-ident-list -> ident-list ， , ident   , ,
-
-I166:
-const-decl -> const const-assignment-list ; ，   , var
-const-decl -> const const-assignment-list ; ，   , procedure
-const-decl -> const const-assignment-list ; ，   , ident
-const-decl -> const const-assignment-list ; ，   , call
-const-decl -> const const-assignment-list ; ，   , begin
-const-decl -> const const-assignment-list ; ，   , if
-const-decl -> const const-assignment-list ; ，   , while
-const-decl -> const const-assignment-list ; ，   , ;
-
-I167:
-expression -> expression adding-operator term ，   , end
-expression -> expression adding-operator term ，   , ;
-expression -> expression adding-operator term ，   , +
-expression -> expression adding-operator term ，   , -
-term -> term ， multiplying-operator factor   , end
-term -> term ， multiplying-operator factor   , ;
-term -> term ， multiplying-operator factor   , +
-term -> term ， multiplying-operator factor   , -
-term -> term ， multiplying-operator factor   , *
-term -> term ， multiplying-operator factor   , /
-multiplying-operator -> ， *   , ident
-multiplying-operator -> ， *   , number
-multiplying-operator -> ， *   , (
-multiplying-operator -> ， /   , ident
-multiplying-operator -> ， /   , number
-multiplying-operator -> ， /   , (
-
-I168:
-term -> term multiplying-operator factor ，   , end
-term -> term multiplying-operator factor ，   , ;
-term -> term multiplying-operator factor ，   , *
-term -> term multiplying-operator factor ，   , /
-term -> term multiplying-operator factor ，   , +
-term -> term multiplying-operator factor ，   , -
-
-I169:
-factor -> ( expression ) ，   , end
-factor -> ( expression ) ，   , ;
-factor -> ( expression ) ，   , *
-factor -> ( expression ) ，   , /
-factor -> ( expression ) ，   , +
-factor -> ( expression ) ，   , -
-
-I170:
-block -> const-decl var-decl proc-decl statement ，   , ;
-
-I171:
-statement -> ident ， := expression   , ;
-
-I172:
-proc-decl -> proc-decl procedure ， ident ; block ;   , ident
-proc-decl -> proc-decl procedure ， ident ; block ;   , call
-proc-decl -> proc-decl procedure ， ident ; block ;   , begin
-proc-decl -> proc-decl procedure ， ident ; block ;   , if
-proc-decl -> proc-decl procedure ， ident ; block ;   , while
-proc-decl -> proc-decl procedure ， ident ; block ;   , ;
-proc-decl -> proc-decl procedure ， ident ; block ;   , procedure
-
-I173:
-statement -> call ， ident   , ;
-
-I174:
-statement -> begin ， statement-list end   , ;
-statement-list -> ， statement   , end
-statement-list -> ， statement-list ; statement   , end
-statement -> ， ident := expression   , end
-statement -> ， call ident   , end
-statement -> ， begin statement-list end   , end
-statement -> ， if condition then statement   , end
-statement -> ， while condition do statement   , end
-statement -> ， ε   , end
-statement-list -> ， statement   , ;
-statement-list -> ， statement-list ; statement   , ;
-statement -> ， ident := expression   , ;
-statement -> ， call ident   , ;
-statement -> ， begin statement-list end   , ;
-statement -> ， if condition then statement   , ;
-statement -> ， while condition do statement   , ;
-statement -> ， ε   , ;
-
-I175:
-statement -> if ， condition then statement   , ;
-condition -> ， expression relation expression   , then
-condition -> ， odd expression   , then
-expression -> ， term   , =
-expression -> ， term   , <>
-expression -> ， term   , <
-expression -> ， term   , >
-expression -> ， term   , <=
-expression -> ， term   , >=
-expression -> ， adding-operator term   , =
-expression -> ， adding-operator term   , <>
-expression -> ， adding-operator term   , <
-expression -> ， adding-operator term   , >
-expression -> ， adding-operator term   , <=
-expression -> ， adding-operator term   , >=
-expression -> ， expression adding-operator term   , =
-expression -> ， expression adding-operator term   , <>
-expression -> ， expression adding-operator term   , <
-expression -> ， expression adding-operator term   , >
-expression -> ， expression adding-operator term   , <=
-expression -> ， expression adding-operator term   , >=
-term -> ， factor   , =
-term -> ， term multiplying-operator factor   , =
-term -> ， factor   , <>
-term -> ， term multiplying-operator factor   , <>
-term -> ， factor   , <
-term -> ， term multiplying-operator factor   , <
-term -> ， factor   , >
-term -> ， term multiplying-operator factor   , >
-term -> ， factor   , <=
-term -> ， term multiplying-operator factor   , <=
-term -> ， factor   , >=
-term -> ， term multiplying-operator factor   , >=
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-expression -> ， term   , +
-expression -> ， term   , -
-expression -> ， adding-operator term   , +
-expression -> ， adding-operator term   , -
-expression -> ， expression adding-operator term   , +
-expression -> ， expression adding-operator term   , -
-factor -> ， ident   , =
-factor -> ， number   , =
-factor -> ， ( expression )   , =
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-factor -> ， ident   , <>
-factor -> ， number   , <>
-factor -> ， ( expression )   , <>
-factor -> ， ident   , <
-factor -> ， number   , <
-factor -> ， ( expression )   , <
-factor -> ， ident   , >
-factor -> ， number   , >
-factor -> ， ( expression )   , >
-factor -> ， ident   , <=
-factor -> ， number   , <=
-factor -> ， ( expression )   , <=
-factor -> ， ident   , >=
-factor -> ， number   , >=
-factor -> ， ( expression )   , >=
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
-
-I176:
-statement -> while ， condition do statement   , ;
+statement -> while M ， condition M do statement M   , .
 condition -> ， expression relation expression   , do
 condition -> ， odd expression   , do
 expression -> ， term   , =
@@ -3130,98 +856,31 @@ factor -> ， ident   , -
 factor -> ， number   , -
 factor -> ， ( expression )   , -
 
-I177:
-var-decl -> var ident-list ; ，   , procedure
-var-decl -> var ident-list ; ，   , ident
-var-decl -> var ident-list ; ，   , call
-var-decl -> var ident-list ; ，   , begin
-var-decl -> var ident-list ; ，   , if
-var-decl -> var ident-list ; ，   , while
-var-decl -> var ident-list ; ，   , ;
+I49:
+ident-list -> ident-list , ident ，   , ;
+ident-list -> ident-list , ident ，   , ,
 
-I178:
-statement -> ident := ， expression   , ;
-expression -> ， term   , ;
-expression -> ， adding-operator term   , ;
-expression -> ， expression adding-operator term   , ;
-term -> ， factor   , ;
-term -> ， term multiplying-operator factor   , ;
-adding-operator -> ， +   , ident
-adding-operator -> ， +   , number
-adding-operator -> ， +   , (
-adding-operator -> ， -   , ident
-adding-operator -> ， -   , number
-adding-operator -> ， -   , (
-expression -> ， term   , +
-expression -> ， term   , -
-expression -> ， adding-operator term   , +
-expression -> ， adding-operator term   , -
-expression -> ， expression adding-operator term   , +
-expression -> ， expression adding-operator term   , -
-factor -> ， ident   , ;
-factor -> ， number   , ;
-factor -> ， ( expression )   , ;
-term -> ， factor   , *
-term -> ， factor   , /
-term -> ， term multiplying-operator factor   , *
-term -> ， term multiplying-operator factor   , /
-term -> ， factor   , +
-term -> ， term multiplying-operator factor   , +
-term -> ， factor   , -
-term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , *
-factor -> ， number   , *
-factor -> ， ( expression )   , *
-factor -> ， ident   , /
-factor -> ， number   , /
-factor -> ， ( expression )   , /
-factor -> ， ident   , +
-factor -> ， number   , +
-factor -> ， ( expression )   , +
-factor -> ， ident   , -
-factor -> ， number   , -
-factor -> ， ( expression )   , -
+I50:
+const-assignment-list -> const-assignment-list , ident = ， number   , ;
+const-assignment-list -> const-assignment-list , ident = ， number   , ,
 
-I179:
-proc-decl -> proc-decl procedure ident ， ; block ;   , ident
-proc-decl -> proc-decl procedure ident ， ; block ;   , call
-proc-decl -> proc-decl procedure ident ， ; block ;   , begin
-proc-decl -> proc-decl procedure ident ， ; block ;   , if
-proc-decl -> proc-decl procedure ident ， ; block ;   , while
-proc-decl -> proc-decl procedure ident ， ; block ;   , ;
-proc-decl -> proc-decl procedure ident ， ; block ;   , procedure
-
-I180:
-statement -> call ident ，   , ;
-
-I181:
-statement -> begin statement-list ， end   , ;
-statement-list -> statement-list ， ; statement   , end
-statement-list -> statement-list ， ; statement   , ;
-
-I182:
-statement -> if condition ， then statement   , ;
-
-I183:
-statement -> while condition ， do statement   , ;
-
-I184:
-factor -> ident ，   , ;
+I51:
+factor -> ident ，   , .
 factor -> ident ，   , *
 factor -> ident ，   , /
 factor -> ident ，   , +
 factor -> ident ，   , -
 
-I185:
-factor -> number ，   , ;
+I52:
+factor -> number ，   , .
 factor -> number ，   , *
 factor -> number ，   , /
 factor -> number ，   , +
 factor -> number ，   , -
 
-I186:
-statement -> ident := expression ，   , ;
-expression -> expression ， adding-operator term   , ;
+I53:
+statement -> ident := expression ，   , .
+expression -> expression ， adding-operator term   , .
 expression -> expression ， adding-operator term   , +
 expression -> expression ， adding-operator term   , -
 adding-operator -> ， +   , ident
@@ -3231,9 +890,9 @@ adding-operator -> ， -   , ident
 adding-operator -> ， -   , number
 adding-operator -> ， -   , (
 
-I187:
-expression -> term ，   , ;
-term -> term ， multiplying-operator factor   , ;
+I54:
+expression -> term ，   , .
+term -> term ， multiplying-operator factor   , .
 expression -> term ，   , +
 expression -> term ，   , -
 term -> term ， multiplying-operator factor   , *
@@ -3247,19 +906,19 @@ multiplying-operator -> ， /   , ident
 multiplying-operator -> ， /   , number
 multiplying-operator -> ， /   , (
 
-I188:
-expression -> adding-operator ， term   , ;
+I55:
+expression -> adding-operator ， term   , .
 expression -> adding-operator ， term   , +
 expression -> adding-operator ， term   , -
-term -> ， factor   , ;
-term -> ， term multiplying-operator factor   , ;
+term -> ， factor   , .
+term -> ， term multiplying-operator factor   , .
 term -> ， factor   , +
 term -> ， term multiplying-operator factor   , +
 term -> ， factor   , -
 term -> ， term multiplying-operator factor   , -
-factor -> ， ident   , ;
-factor -> ， number   , ;
-factor -> ， ( expression )   , ;
+factor -> ， ident   , .
+factor -> ， number   , .
+factor -> ， ( expression )   , .
 term -> ， factor   , *
 term -> ， factor   , /
 term -> ， term multiplying-operator factor   , *
@@ -3277,14 +936,1066 @@ factor -> ， ident   , /
 factor -> ， number   , /
 factor -> ， ( expression )   , /
 
-I189:
+I56:
+term -> factor ，   , .
+term -> factor ，   , *
+term -> factor ，   , /
+term -> factor ，   , +
+term -> factor ，   , -
+
+I57:
+factor -> ( ， expression )   , .
+factor -> ( ， expression )   , *
+factor -> ( ， expression )   , /
+factor -> ( ， expression )   , +
+factor -> ( ， expression )   , -
+expression -> ， term   , )
+expression -> ， adding-operator term   , )
+expression -> ， expression adding-operator term   , )
+term -> ， factor   , )
+term -> ， term multiplying-operator factor   , )
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+expression -> ， term   , +
+expression -> ， term   , -
+expression -> ， adding-operator term   , +
+expression -> ， adding-operator term   , -
+expression -> ， expression adding-operator term   , +
+expression -> ， expression adding-operator term   , -
+factor -> ， ident   , )
+factor -> ， number   , )
+factor -> ， ( expression )   , )
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I58:
+proc-decl -> proc-decl procedure ident ; ， block ;   , ident
+proc-decl -> proc-decl procedure ident ; ， block ;   , call
+proc-decl -> proc-decl procedure ident ; ， block ;   , begin
+proc-decl -> proc-decl procedure ident ; ， block ;   , if
+proc-decl -> proc-decl procedure ident ; ， block ;   , while
+proc-decl -> proc-decl procedure ident ; ， block ;   , .
+proc-decl -> proc-decl procedure ident ; ， block ;   , procedure
+block -> ， const-decl var-decl proc-decl statement   , ;
+const-decl -> ， const const-assignment-list ;   , var
+const-decl -> ， const const-assignment-list ;   , procedure
+const-decl -> ， const const-assignment-list ;   , ident
+const-decl -> ， const const-assignment-list ;   , call
+const-decl -> ， const const-assignment-list ;   , begin
+const-decl -> ， const const-assignment-list ;   , if
+const-decl -> ， const const-assignment-list ;   , while
+const-decl -> ， const const-assignment-list ;   , ;
+const-decl -> ， ε   , var
+const-decl -> ， ε   , procedure
+const-decl -> ， ε   , ident
+const-decl -> ， ε   , call
+const-decl -> ， ε   , begin
+const-decl -> ， ε   , if
+const-decl -> ， ε   , while
+const-decl -> ， ε   , ;
+
+I59:
+statement -> ident := ， expression   , end
+statement -> ident := ， expression   , ;
+expression -> ， term   , end
+expression -> ， adding-operator term   , end
+expression -> ， expression adding-operator term   , end
+expression -> ， term   , ;
+expression -> ， adding-operator term   , ;
+expression -> ， expression adding-operator term   , ;
+term -> ， factor   , end
+term -> ， term multiplying-operator factor   , end
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+expression -> ， term   , +
+expression -> ， term   , -
+expression -> ， adding-operator term   , +
+expression -> ， adding-operator term   , -
+expression -> ， expression adding-operator term   , +
+expression -> ， expression adding-operator term   , -
+term -> ， factor   , ;
+term -> ， term multiplying-operator factor   , ;
+factor -> ， ident   , end
+factor -> ， number   , end
+factor -> ， ( expression )   , end
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , ;
+factor -> ， number   , ;
+factor -> ， ( expression )   , ;
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I60:
+statement -> call ident ，   , end
+statement -> call ident ，   , ;
+
+I61:
+statement -> begin statement-list ， end   , end
+statement -> begin statement-list ， end   , ;
+statement-list -> statement-list ， ; statement   , end
+statement-list -> statement-list ， ; statement   , ;
+
+I62:
+statement-list -> statement-list ; ， statement   , end
+statement-list -> statement-list ; ， statement   , ;
+statement -> ， ident := expression   , end
+statement -> ， call ident   , end
+statement -> ， begin statement-list end   , end
+statement -> ， if condition then M statement M   , end
+statement -> ， while M condition M do statement M   , end
+statement -> ， ε   , end
+statement -> ， ident := expression   , ;
+statement -> ， call ident   , ;
+statement -> ， begin statement-list end   , ;
+statement -> ， if condition then M statement M   , ;
+statement -> ， while M condition M do statement M   , ;
+statement -> ， ε   , ;
+
+I63:
+statement -> begin statement-list end ，   , .
+
+I64:
+statement -> if condition ， then M statement M   , end
+statement -> if condition ， then M statement M   , ;
+
+I65:
+statement -> while M ， condition M do statement M   , end
+statement -> while M ， condition M do statement M   , ;
+condition -> ， expression relation expression   , do
+condition -> ， odd expression   , do
+expression -> ， term   , =
+expression -> ， term   , <>
+expression -> ， term   , <
+expression -> ， term   , >
+expression -> ， term   , <=
+expression -> ， term   , >=
+expression -> ， adding-operator term   , =
+expression -> ， adding-operator term   , <>
+expression -> ， adding-operator term   , <
+expression -> ， adding-operator term   , >
+expression -> ， adding-operator term   , <=
+expression -> ， adding-operator term   , >=
+expression -> ， expression adding-operator term   , =
+expression -> ， expression adding-operator term   , <>
+expression -> ， expression adding-operator term   , <
+expression -> ， expression adding-operator term   , >
+expression -> ， expression adding-operator term   , <=
+expression -> ， expression adding-operator term   , >=
+term -> ， factor   , =
+term -> ， term multiplying-operator factor   , =
+term -> ， factor   , <>
+term -> ， term multiplying-operator factor   , <>
+term -> ， factor   , <
+term -> ， term multiplying-operator factor   , <
+term -> ， factor   , >
+term -> ， term multiplying-operator factor   , >
+term -> ， factor   , <=
+term -> ， term multiplying-operator factor   , <=
+term -> ， factor   , >=
+term -> ， term multiplying-operator factor   , >=
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+expression -> ， term   , +
+expression -> ， term   , -
+expression -> ， adding-operator term   , +
+expression -> ， adding-operator term   , -
+expression -> ， expression adding-operator term   , +
+expression -> ， expression adding-operator term   , -
+factor -> ， ident   , =
+factor -> ， number   , =
+factor -> ， ( expression )   , =
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+factor -> ， ident   , <>
+factor -> ， number   , <>
+factor -> ， ( expression )   , <>
+factor -> ， ident   , <
+factor -> ， number   , <
+factor -> ， ( expression )   , <
+factor -> ， ident   , >
+factor -> ， number   , >
+factor -> ， ( expression )   , >
+factor -> ， ident   , <=
+factor -> ， number   , <=
+factor -> ， ( expression )   , <=
+factor -> ， ident   , >=
+factor -> ， number   , >=
+factor -> ， ( expression )   , >=
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I66:
+relation -> = ，   , ident
+relation -> = ，   , number
+relation -> = ，   , +
+relation -> = ，   , -
+relation -> = ，   , (
+
+I67:
+condition -> expression relation ， expression   , then
+expression -> ， term   , then
+expression -> ， adding-operator term   , then
+expression -> ， expression adding-operator term   , then
+term -> ， factor   , then
+term -> ， term multiplying-operator factor   , then
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+expression -> ， term   , +
+expression -> ， term   , -
+expression -> ， adding-operator term   , +
+expression -> ， adding-operator term   , -
+expression -> ， expression adding-operator term   , +
+expression -> ， expression adding-operator term   , -
+factor -> ， ident   , then
+factor -> ， number   , then
+factor -> ， ( expression )   , then
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I68:
+relation -> <> ，   , ident
+relation -> <> ，   , number
+relation -> <> ，   , +
+relation -> <> ，   , -
+relation -> <> ，   , (
+
+I69:
+relation -> < ，   , ident
+relation -> < ，   , number
+relation -> < ，   , +
+relation -> < ，   , -
+relation -> < ，   , (
+
+I70:
+relation -> > ，   , ident
+relation -> > ，   , number
+relation -> > ，   , +
+relation -> > ，   , -
+relation -> > ，   , (
+
+I71:
+relation -> <= ，   , ident
+relation -> <= ，   , number
+relation -> <= ，   , +
+relation -> <= ，   , -
+relation -> <= ，   , (
+
+I72:
+relation -> >= ，   , ident
+relation -> >= ，   , number
+relation -> >= ，   , +
+relation -> >= ，   , -
+relation -> >= ，   , (
+
+I73:
+expression -> expression adding-operator ， term   , =
+expression -> expression adding-operator ， term   , <>
+expression -> expression adding-operator ， term   , <
+expression -> expression adding-operator ， term   , >
+expression -> expression adding-operator ， term   , <=
+expression -> expression adding-operator ， term   , >=
+expression -> expression adding-operator ， term   , +
+expression -> expression adding-operator ， term   , -
+term -> ， factor   , =
+term -> ， term multiplying-operator factor   , =
+term -> ， factor   , <>
+term -> ， term multiplying-operator factor   , <>
+term -> ， factor   , <
+term -> ， term multiplying-operator factor   , <
+term -> ， factor   , >
+term -> ， term multiplying-operator factor   , >
+term -> ， factor   , <=
+term -> ， term multiplying-operator factor   , <=
+term -> ， factor   , >=
+term -> ， term multiplying-operator factor   , >=
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , =
+factor -> ， number   , =
+factor -> ， ( expression )   , =
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+factor -> ， ident   , <>
+factor -> ， number   , <>
+factor -> ， ( expression )   , <>
+factor -> ， ident   , <
+factor -> ， number   , <
+factor -> ， ( expression )   , <
+factor -> ， ident   , >
+factor -> ， number   , >
+factor -> ， ( expression )   , >
+factor -> ， ident   , <=
+factor -> ， number   , <=
+factor -> ， ( expression )   , <=
+factor -> ， ident   , >=
+factor -> ， number   , >=
+factor -> ， ( expression )   , >=
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+
+I74:
+statement -> if condition then ， M statement M   , .
+M -> ， ε   , ident
+M -> ， ε   , call
+M -> ， ε   , begin
+M -> ， ε   , if
+M -> ， ε   , while
+M -> ， ε   , .
+
+I75:
+factor -> ident ，   , then
+factor -> ident ，   , *
+factor -> ident ，   , /
+factor -> ident ，   , +
+factor -> ident ，   , -
+
+I76:
+factor -> number ，   , then
+factor -> number ，   , *
+factor -> number ，   , /
+factor -> number ，   , +
+factor -> number ，   , -
+
+I77:
+condition -> odd expression ，   , then
+expression -> expression ， adding-operator term   , then
+expression -> expression ， adding-operator term   , +
+expression -> expression ， adding-operator term   , -
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+
+I78:
+expression -> term ，   , then
+term -> term ， multiplying-operator factor   , then
+expression -> term ，   , +
+expression -> term ，   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I79:
+expression -> adding-operator ， term   , then
+expression -> adding-operator ， term   , +
+expression -> adding-operator ， term   , -
+term -> ， factor   , then
+term -> ， term multiplying-operator factor   , then
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , then
+factor -> ， number   , then
+factor -> ， ( expression )   , then
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+
+I80:
+term -> factor ，   , then
+term -> factor ，   , *
+term -> factor ，   , /
+term -> factor ，   , +
+term -> factor ，   , -
+
+I81:
+factor -> ( ， expression )   , then
+factor -> ( ， expression )   , *
+factor -> ( ， expression )   , /
+factor -> ( ， expression )   , +
+factor -> ( ， expression )   , -
+expression -> ， term   , )
+expression -> ， adding-operator term   , )
+expression -> ， expression adding-operator term   , )
+term -> ， factor   , )
+term -> ， term multiplying-operator factor   , )
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+expression -> ， term   , +
+expression -> ， term   , -
+expression -> ， adding-operator term   , +
+expression -> ， adding-operator term   , -
+expression -> ， expression adding-operator term   , +
+expression -> ， expression adding-operator term   , -
+factor -> ， ident   , )
+factor -> ， number   , )
+factor -> ， ( expression )   , )
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I82:
+term -> term multiplying-operator ， factor   , =
+term -> term multiplying-operator ， factor   , <>
+term -> term multiplying-operator ， factor   , <
+term -> term multiplying-operator ， factor   , >
+term -> term multiplying-operator ， factor   , <=
+term -> term multiplying-operator ， factor   , >=
+term -> term multiplying-operator ， factor   , *
+term -> term multiplying-operator ， factor   , /
+term -> term multiplying-operator ， factor   , +
+term -> term multiplying-operator ， factor   , -
+factor -> ， ident   , =
+factor -> ， number   , =
+factor -> ， ( expression )   , =
+factor -> ， ident   , <>
+factor -> ， number   , <>
+factor -> ， ( expression )   , <>
+factor -> ， ident   , <
+factor -> ， number   , <
+factor -> ， ( expression )   , <
+factor -> ， ident   , >
+factor -> ， number   , >
+factor -> ， ( expression )   , >
+factor -> ， ident   , <=
+factor -> ， number   , <=
+factor -> ， ( expression )   , <=
+factor -> ， ident   , >=
+factor -> ， number   , >=
+factor -> ， ( expression )   , >=
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I83:
+multiplying-operator -> * ，   , ident
+multiplying-operator -> * ，   , number
+multiplying-operator -> * ，   , (
+
+I84:
+multiplying-operator -> / ，   , ident
+multiplying-operator -> / ，   , number
+multiplying-operator -> / ，   , (
+
+I85:
+expression -> adding-operator term ，   , =
+expression -> adding-operator term ，   , <>
+expression -> adding-operator term ，   , <
+expression -> adding-operator term ，   , >
+expression -> adding-operator term ，   , <=
+expression -> adding-operator term ，   , >=
+expression -> adding-operator term ，   , +
+expression -> adding-operator term ，   , -
+term -> term ， multiplying-operator factor   , =
+term -> term ， multiplying-operator factor   , <>
+term -> term ， multiplying-operator factor   , <
+term -> term ， multiplying-operator factor   , >
+term -> term ， multiplying-operator factor   , <=
+term -> term ， multiplying-operator factor   , >=
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I86:
+factor -> ident ，   , )
+factor -> ident ，   , *
+factor -> ident ，   , /
+factor -> ident ，   , +
+factor -> ident ，   , -
+
+I87:
+factor -> number ，   , )
+factor -> number ，   , *
+factor -> number ，   , /
+factor -> number ，   , +
+factor -> number ，   , -
+
+I88:
+factor -> ( expression ， )   , =
+factor -> ( expression ， )   , <>
+factor -> ( expression ， )   , <
+factor -> ( expression ， )   , >
+factor -> ( expression ， )   , <=
+factor -> ( expression ， )   , >=
+factor -> ( expression ， )   , *
+factor -> ( expression ， )   , /
+factor -> ( expression ， )   , +
+factor -> ( expression ， )   , -
+expression -> expression ， adding-operator term   , )
+expression -> expression ， adding-operator term   , +
+expression -> expression ， adding-operator term   , -
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+
+I89:
+expression -> term ，   , )
+term -> term ， multiplying-operator factor   , )
+expression -> term ，   , +
+expression -> term ，   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I90:
+expression -> adding-operator ， term   , )
+expression -> adding-operator ， term   , +
+expression -> adding-operator ， term   , -
+term -> ， factor   , )
+term -> ， term multiplying-operator factor   , )
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , )
+factor -> ， number   , )
+factor -> ， ( expression )   , )
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+
+I91:
+term -> factor ，   , )
+term -> factor ，   , *
+term -> factor ，   , /
+term -> factor ，   , +
+term -> factor ，   , -
+
+I92:
+factor -> ( ， expression )   , )
+factor -> ( ， expression )   , *
+factor -> ( ， expression )   , /
+factor -> ( ， expression )   , +
+factor -> ( ， expression )   , -
+expression -> ， term   , )
+expression -> ， adding-operator term   , )
+expression -> ， expression adding-operator term   , )
+term -> ， factor   , )
+term -> ， term multiplying-operator factor   , )
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+expression -> ， term   , +
+expression -> ， term   , -
+expression -> ， adding-operator term   , +
+expression -> ， adding-operator term   , -
+expression -> ， expression adding-operator term   , +
+expression -> ， expression adding-operator term   , -
+factor -> ， ident   , )
+factor -> ， number   , )
+factor -> ， ( expression )   , )
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I93:
+condition -> expression ， relation expression   , do
+expression -> expression ， adding-operator term   , =
+expression -> expression ， adding-operator term   , <>
+expression -> expression ， adding-operator term   , <
+expression -> expression ， adding-operator term   , >
+expression -> expression ， adding-operator term   , <=
+expression -> expression ， adding-operator term   , >=
+expression -> expression ， adding-operator term   , +
+expression -> expression ， adding-operator term   , -
+relation -> ， =   , ident
+relation -> ， =   , number
+relation -> ， =   , +
+relation -> ， =   , -
+relation -> ， =   , (
+relation -> ， <>   , ident
+relation -> ， <>   , number
+relation -> ， <>   , +
+relation -> ， <>   , -
+relation -> ， <>   , (
+relation -> ， <   , ident
+relation -> ， <   , number
+relation -> ， <   , +
+relation -> ， <   , -
+relation -> ， <   , (
+relation -> ， >   , ident
+relation -> ， >   , number
+relation -> ， >   , +
+relation -> ， >   , -
+relation -> ， >   , (
+relation -> ， <=   , ident
+relation -> ， <=   , number
+relation -> ， <=   , +
+relation -> ， <=   , -
+relation -> ， <=   , (
+relation -> ， >=   , ident
+relation -> ， >=   , number
+relation -> ， >=   , +
+relation -> ， >=   , -
+relation -> ， >=   , (
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+
+I94:
+statement -> while M condition ， M do statement M   , .
+M -> ， ε   , do
+
+I95:
+condition -> odd ， expression   , do
+expression -> ， term   , do
+expression -> ， adding-operator term   , do
+expression -> ， expression adding-operator term   , do
+term -> ， factor   , do
+term -> ， term multiplying-operator factor   , do
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+expression -> ， term   , +
+expression -> ， term   , -
+expression -> ， adding-operator term   , +
+expression -> ， adding-operator term   , -
+expression -> ， expression adding-operator term   , +
+expression -> ， expression adding-operator term   , -
+factor -> ， ident   , do
+factor -> ， number   , do
+factor -> ， ( expression )   , do
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I96:
+const-assignment-list -> const-assignment-list , ident = number ，   , ;
+const-assignment-list -> const-assignment-list , ident = number ，   , ,
+
+I97:
+expression -> expression adding-operator ， term   , .
+expression -> expression adding-operator ， term   , +
+expression -> expression adding-operator ， term   , -
+term -> ， factor   , .
+term -> ， term multiplying-operator factor   , .
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , .
+factor -> ， number   , .
+factor -> ， ( expression )   , .
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+
+I98:
+term -> term multiplying-operator ， factor   , .
+term -> term multiplying-operator ， factor   , *
+term -> term multiplying-operator ， factor   , /
+term -> term multiplying-operator ， factor   , +
+term -> term multiplying-operator ， factor   , -
+factor -> ， ident   , .
+factor -> ， number   , .
+factor -> ， ( expression )   , .
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I99:
+expression -> adding-operator term ，   , .
+expression -> adding-operator term ，   , +
+expression -> adding-operator term ，   , -
+term -> term ， multiplying-operator factor   , .
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I100:
+factor -> ( expression ， )   , .
+factor -> ( expression ， )   , *
+factor -> ( expression ， )   , /
+factor -> ( expression ， )   , +
+factor -> ( expression ， )   , -
+expression -> expression ， adding-operator term   , )
+expression -> expression ， adding-operator term   , +
+expression -> expression ， adding-operator term   , -
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+
+I101:
+proc-decl -> proc-decl procedure ident ; block ， ;   , ident
+proc-decl -> proc-decl procedure ident ; block ， ;   , call
+proc-decl -> proc-decl procedure ident ; block ， ;   , begin
+proc-decl -> proc-decl procedure ident ; block ， ;   , if
+proc-decl -> proc-decl procedure ident ; block ， ;   , while
+proc-decl -> proc-decl procedure ident ; block ， ;   , .
+proc-decl -> proc-decl procedure ident ; block ， ;   , procedure
+
+I102:
+block -> const-decl ， var-decl proc-decl statement   , ;
+var-decl -> ， var ident-list ;   , procedure
+var-decl -> ， var ident-list ;   , ident
+var-decl -> ， var ident-list ;   , call
+var-decl -> ， var ident-list ;   , begin
+var-decl -> ， var ident-list ;   , if
+var-decl -> ， var ident-list ;   , while
+var-decl -> ， var ident-list ;   , ;
+var-decl -> ， ε   , procedure
+var-decl -> ， ε   , ident
+var-decl -> ， ε   , call
+var-decl -> ， ε   , begin
+var-decl -> ， ε   , if
+var-decl -> ， ε   , while
+var-decl -> ， ε   , ;
+
+I103:
+const-decl -> const ， const-assignment-list ;   , var
+const-decl -> const ， const-assignment-list ;   , procedure
+const-decl -> const ， const-assignment-list ;   , ident
+const-decl -> const ， const-assignment-list ;   , call
+const-decl -> const ， const-assignment-list ;   , begin
+const-decl -> const ， const-assignment-list ;   , if
+const-decl -> const ， const-assignment-list ;   , while
+const-decl -> const ， const-assignment-list ;   , ;
+const-assignment-list -> ， ident = number   , ;
+const-assignment-list -> ， const-assignment-list , ident = number   , ;
+const-assignment-list -> ， ident = number   , ,
+const-assignment-list -> ， const-assignment-list , ident = number   , ,
+
+I104:
+factor -> ident ，   , end
+factor -> ident ，   , ;
+factor -> ident ，   , *
+factor -> ident ，   , /
+factor -> ident ，   , +
+factor -> ident ，   , -
+
+I105:
+factor -> number ，   , end
+factor -> number ，   , ;
+factor -> number ，   , *
+factor -> number ，   , /
+factor -> number ，   , +
+factor -> number ，   , -
+
+I106:
+statement -> ident := expression ，   , end
+statement -> ident := expression ，   , ;
+expression -> expression ， adding-operator term   , end
+expression -> expression ， adding-operator term   , ;
+expression -> expression ， adding-operator term   , +
+expression -> expression ， adding-operator term   , -
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+
+I107:
+expression -> term ，   , end
+expression -> term ，   , ;
+term -> term ， multiplying-operator factor   , end
+expression -> term ，   , +
+expression -> term ，   , -
+term -> term ， multiplying-operator factor   , ;
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I108:
+expression -> adding-operator ， term   , end
+expression -> adding-operator ， term   , ;
+expression -> adding-operator ， term   , +
+expression -> adding-operator ， term   , -
+term -> ， factor   , end
+term -> ， term multiplying-operator factor   , end
+term -> ， factor   , ;
+term -> ， term multiplying-operator factor   , ;
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , end
+factor -> ， number   , end
+factor -> ， ( expression )   , end
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+factor -> ， ident   , ;
+factor -> ， number   , ;
+factor -> ， ( expression )   , ;
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+
+I109:
+term -> factor ，   , end
 term -> factor ，   , ;
 term -> factor ，   , *
 term -> factor ，   , /
 term -> factor ，   , +
 term -> factor ，   , -
 
-I190:
+I110:
+factor -> ( ， expression )   , end
 factor -> ( ， expression )   , ;
 factor -> ( ， expression )   , *
 factor -> ( ， expression )   , /
@@ -3331,7 +2042,1370 @@ factor -> ， ident   , -
 factor -> ， number   , -
 factor -> ， ( expression )   , -
 
+I111:
+statement -> begin statement-list end ，   , end
+statement -> begin statement-list end ，   , ;
+
+I112:
+statement-list -> statement-list ; statement ，   , end
+statement-list -> statement-list ; statement ，   , ;
+
+I113:
+statement -> if condition then ， M statement M   , end
+statement -> if condition then ， M statement M   , ;
+M -> ， ε   , ident
+M -> ， ε   , call
+M -> ， ε   , begin
+M -> ， ε   , if
+M -> ， ε   , while
+M -> ， ε   , end
+M -> ， ε   , ;
+
+I114:
+statement -> while M condition ， M do statement M   , end
+statement -> while M condition ， M do statement M   , ;
+M -> ， ε   , do
+
+I115:
+condition -> expression relation expression ，   , then
+expression -> expression ， adding-operator term   , then
+expression -> expression ， adding-operator term   , +
+expression -> expression ， adding-operator term   , -
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+
+I116:
+expression -> expression adding-operator term ，   , =
+expression -> expression adding-operator term ，   , <>
+expression -> expression adding-operator term ，   , <
+expression -> expression adding-operator term ，   , >
+expression -> expression adding-operator term ，   , <=
+expression -> expression adding-operator term ，   , >=
+expression -> expression adding-operator term ，   , +
+expression -> expression adding-operator term ，   , -
+term -> term ， multiplying-operator factor   , =
+term -> term ， multiplying-operator factor   , <>
+term -> term ， multiplying-operator factor   , <
+term -> term ， multiplying-operator factor   , >
+term -> term ， multiplying-operator factor   , <=
+term -> term ， multiplying-operator factor   , >=
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I117:
+statement -> if condition then M ， statement M   , .
+statement -> ， ident := expression   , .
+statement -> ， call ident   , .
+statement -> ， begin statement-list end   , .
+statement -> ， if condition then M statement M   , .
+statement -> ， while M condition M do statement M   , .
+statement -> ， ε   , .
+
+I118:
+expression -> expression adding-operator ， term   , then
+expression -> expression adding-operator ， term   , +
+expression -> expression adding-operator ， term   , -
+term -> ， factor   , then
+term -> ， term multiplying-operator factor   , then
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , then
+factor -> ， number   , then
+factor -> ， ( expression )   , then
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+
+I119:
+term -> term multiplying-operator ， factor   , then
+term -> term multiplying-operator ， factor   , *
+term -> term multiplying-operator ， factor   , /
+term -> term multiplying-operator ， factor   , +
+term -> term multiplying-operator ， factor   , -
+factor -> ， ident   , then
+factor -> ， number   , then
+factor -> ， ( expression )   , then
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I120:
+expression -> adding-operator term ，   , then
+expression -> adding-operator term ，   , +
+expression -> adding-operator term ，   , -
+term -> term ， multiplying-operator factor   , then
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I121:
+factor -> ( expression ， )   , then
+factor -> ( expression ， )   , *
+factor -> ( expression ， )   , /
+factor -> ( expression ， )   , +
+factor -> ( expression ， )   , -
+expression -> expression ， adding-operator term   , )
+expression -> expression ， adding-operator term   , +
+expression -> expression ， adding-operator term   , -
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+
+I122:
+term -> term multiplying-operator factor ，   , =
+term -> term multiplying-operator factor ，   , <>
+term -> term multiplying-operator factor ，   , <
+term -> term multiplying-operator factor ，   , >
+term -> term multiplying-operator factor ，   , <=
+term -> term multiplying-operator factor ，   , >=
+term -> term multiplying-operator factor ，   , *
+term -> term multiplying-operator factor ，   , /
+term -> term multiplying-operator factor ，   , +
+term -> term multiplying-operator factor ，   , -
+
+I123:
+expression -> expression adding-operator ， term   , )
+expression -> expression adding-operator ， term   , +
+expression -> expression adding-operator ， term   , -
+term -> ， factor   , )
+term -> ， term multiplying-operator factor   , )
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , )
+factor -> ， number   , )
+factor -> ， ( expression )   , )
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+
+I124:
+factor -> ( expression ) ，   , =
+factor -> ( expression ) ，   , <>
+factor -> ( expression ) ，   , <
+factor -> ( expression ) ，   , >
+factor -> ( expression ) ，   , <=
+factor -> ( expression ) ，   , >=
+factor -> ( expression ) ，   , *
+factor -> ( expression ) ，   , /
+factor -> ( expression ) ，   , +
+factor -> ( expression ) ，   , -
+
+I125:
+term -> term multiplying-operator ， factor   , )
+term -> term multiplying-operator ， factor   , *
+term -> term multiplying-operator ， factor   , /
+term -> term multiplying-operator ， factor   , +
+term -> term multiplying-operator ， factor   , -
+factor -> ， ident   , )
+factor -> ， number   , )
+factor -> ， ( expression )   , )
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I126:
+expression -> adding-operator term ，   , )
+expression -> adding-operator term ，   , +
+expression -> adding-operator term ，   , -
+term -> term ， multiplying-operator factor   , )
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I127:
+factor -> ( expression ， )   , )
+factor -> ( expression ， )   , *
+factor -> ( expression ， )   , /
+factor -> ( expression ， )   , +
+factor -> ( expression ， )   , -
+expression -> expression ， adding-operator term   , )
+expression -> expression ， adding-operator term   , +
+expression -> expression ， adding-operator term   , -
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+
+I128:
+condition -> expression relation ， expression   , do
+expression -> ， term   , do
+expression -> ， adding-operator term   , do
+expression -> ， expression adding-operator term   , do
+term -> ， factor   , do
+term -> ， term multiplying-operator factor   , do
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+expression -> ， term   , +
+expression -> ， term   , -
+expression -> ， adding-operator term   , +
+expression -> ， adding-operator term   , -
+expression -> ， expression adding-operator term   , +
+expression -> ， expression adding-operator term   , -
+factor -> ， ident   , do
+factor -> ， number   , do
+factor -> ， ( expression )   , do
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I129:
+statement -> while M condition M ， do statement M   , .
+
+I130:
+factor -> ident ，   , do
+factor -> ident ，   , *
+factor -> ident ，   , /
+factor -> ident ，   , +
+factor -> ident ，   , -
+
+I131:
+factor -> number ，   , do
+factor -> number ，   , *
+factor -> number ，   , /
+factor -> number ，   , +
+factor -> number ，   , -
+
+I132:
+condition -> odd expression ，   , do
+expression -> expression ， adding-operator term   , do
+expression -> expression ， adding-operator term   , +
+expression -> expression ， adding-operator term   , -
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+
+I133:
+expression -> term ，   , do
+term -> term ， multiplying-operator factor   , do
+expression -> term ，   , +
+expression -> term ，   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I134:
+expression -> adding-operator ， term   , do
+expression -> adding-operator ， term   , +
+expression -> adding-operator ， term   , -
+term -> ， factor   , do
+term -> ， term multiplying-operator factor   , do
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , do
+factor -> ， number   , do
+factor -> ， ( expression )   , do
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+
+I135:
+term -> factor ，   , do
+term -> factor ，   , *
+term -> factor ，   , /
+term -> factor ，   , +
+term -> factor ，   , -
+
+I136:
+factor -> ( ， expression )   , do
+factor -> ( ， expression )   , *
+factor -> ( ， expression )   , /
+factor -> ( ， expression )   , +
+factor -> ( ， expression )   , -
+expression -> ， term   , )
+expression -> ， adding-operator term   , )
+expression -> ， expression adding-operator term   , )
+term -> ， factor   , )
+term -> ， term multiplying-operator factor   , )
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+expression -> ， term   , +
+expression -> ， term   , -
+expression -> ， adding-operator term   , +
+expression -> ， adding-operator term   , -
+expression -> ， expression adding-operator term   , +
+expression -> ， expression adding-operator term   , -
+factor -> ， ident   , )
+factor -> ， number   , )
+factor -> ， ( expression )   , )
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I137:
+expression -> expression adding-operator term ，   , .
+expression -> expression adding-operator term ，   , +
+expression -> expression adding-operator term ，   , -
+term -> term ， multiplying-operator factor   , .
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I138:
+term -> term multiplying-operator factor ，   , .
+term -> term multiplying-operator factor ，   , *
+term -> term multiplying-operator factor ，   , /
+term -> term multiplying-operator factor ，   , +
+term -> term multiplying-operator factor ，   , -
+
+I139:
+factor -> ( expression ) ，   , .
+factor -> ( expression ) ，   , *
+factor -> ( expression ) ，   , /
+factor -> ( expression ) ，   , +
+factor -> ( expression ) ，   , -
+
+I140:
+proc-decl -> proc-decl procedure ident ; block ; ，   , ident
+proc-decl -> proc-decl procedure ident ; block ; ，   , call
+proc-decl -> proc-decl procedure ident ; block ; ，   , begin
+proc-decl -> proc-decl procedure ident ; block ; ，   , if
+proc-decl -> proc-decl procedure ident ; block ; ，   , while
+proc-decl -> proc-decl procedure ident ; block ; ，   , .
+proc-decl -> proc-decl procedure ident ; block ; ，   , procedure
+
+I141:
+block -> const-decl var-decl ， proc-decl statement   , ;
+proc-decl -> ， proc-decl procedure ident ; block ;   , ident
+proc-decl -> ， proc-decl procedure ident ; block ;   , call
+proc-decl -> ， proc-decl procedure ident ; block ;   , begin
+proc-decl -> ， proc-decl procedure ident ; block ;   , if
+proc-decl -> ， proc-decl procedure ident ; block ;   , while
+proc-decl -> ， proc-decl procedure ident ; block ;   , ;
+proc-decl -> ， ε   , ident
+proc-decl -> ， ε   , call
+proc-decl -> ， ε   , begin
+proc-decl -> ， ε   , if
+proc-decl -> ， ε   , while
+proc-decl -> ， ε   , ;
+proc-decl -> ， proc-decl procedure ident ; block ;   , procedure
+proc-decl -> ， ε   , procedure
+
+I142:
+var-decl -> var ， ident-list ;   , procedure
+var-decl -> var ， ident-list ;   , ident
+var-decl -> var ， ident-list ;   , call
+var-decl -> var ， ident-list ;   , begin
+var-decl -> var ， ident-list ;   , if
+var-decl -> var ， ident-list ;   , while
+var-decl -> var ， ident-list ;   , ;
+ident-list -> ， ident   , ;
+ident-list -> ， ident-list , ident   , ;
+ident-list -> ， ident   , ,
+ident-list -> ， ident-list , ident   , ,
+
+I143:
+const-decl -> const const-assignment-list ， ;   , var
+const-decl -> const const-assignment-list ， ;   , procedure
+const-decl -> const const-assignment-list ， ;   , ident
+const-decl -> const const-assignment-list ， ;   , call
+const-decl -> const const-assignment-list ， ;   , begin
+const-decl -> const const-assignment-list ， ;   , if
+const-decl -> const const-assignment-list ， ;   , while
+const-decl -> const const-assignment-list ， ;   , ;
+const-assignment-list -> const-assignment-list ， , ident = number   , ;
+const-assignment-list -> const-assignment-list ， , ident = number   , ,
+
+I144:
+expression -> expression adding-operator ， term   , end
+expression -> expression adding-operator ， term   , ;
+expression -> expression adding-operator ， term   , +
+expression -> expression adding-operator ， term   , -
+term -> ， factor   , end
+term -> ， term multiplying-operator factor   , end
+term -> ， factor   , ;
+term -> ， term multiplying-operator factor   , ;
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , end
+factor -> ， number   , end
+factor -> ， ( expression )   , end
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+factor -> ， ident   , ;
+factor -> ， number   , ;
+factor -> ， ( expression )   , ;
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+
+I145:
+term -> term multiplying-operator ， factor   , end
+term -> term multiplying-operator ， factor   , ;
+term -> term multiplying-operator ， factor   , *
+term -> term multiplying-operator ， factor   , /
+term -> term multiplying-operator ， factor   , +
+term -> term multiplying-operator ， factor   , -
+factor -> ， ident   , end
+factor -> ， number   , end
+factor -> ， ( expression )   , end
+factor -> ， ident   , ;
+factor -> ， number   , ;
+factor -> ， ( expression )   , ;
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I146:
+expression -> adding-operator term ，   , end
+expression -> adding-operator term ，   , ;
+expression -> adding-operator term ，   , +
+expression -> adding-operator term ，   , -
+term -> term ， multiplying-operator factor   , end
+term -> term ， multiplying-operator factor   , ;
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I147:
+factor -> ( expression ， )   , end
+factor -> ( expression ， )   , ;
+factor -> ( expression ， )   , *
+factor -> ( expression ， )   , /
+factor -> ( expression ， )   , +
+factor -> ( expression ， )   , -
+expression -> expression ， adding-operator term   , )
+expression -> expression ， adding-operator term   , +
+expression -> expression ， adding-operator term   , -
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+
+I148:
+statement -> if condition then M ， statement M   , end
+statement -> if condition then M ， statement M   , ;
+statement -> ， ident := expression   , end
+statement -> ， call ident   , end
+statement -> ， begin statement-list end   , end
+statement -> ， if condition then M statement M   , end
+statement -> ， while M condition M do statement M   , end
+statement -> ， ε   , end
+statement -> ， ident := expression   , ;
+statement -> ， call ident   , ;
+statement -> ， begin statement-list end   , ;
+statement -> ， if condition then M statement M   , ;
+statement -> ， while M condition M do statement M   , ;
+statement -> ， ε   , ;
+
+I149:
+statement -> while M condition M ， do statement M   , end
+statement -> while M condition M ， do statement M   , ;
+
+I150:
+statement -> if condition then M statement ， M   , .
+M -> ， ε   , .
+
+I151:
+expression -> expression adding-operator term ，   , then
+expression -> expression adding-operator term ，   , +
+expression -> expression adding-operator term ，   , -
+term -> term ， multiplying-operator factor   , then
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I152:
+term -> term multiplying-operator factor ，   , then
+term -> term multiplying-operator factor ，   , *
+term -> term multiplying-operator factor ，   , /
+term -> term multiplying-operator factor ，   , +
+term -> term multiplying-operator factor ，   , -
+
+I153:
+factor -> ( expression ) ，   , then
+factor -> ( expression ) ，   , *
+factor -> ( expression ) ，   , /
+factor -> ( expression ) ，   , +
+factor -> ( expression ) ，   , -
+
+I154:
+expression -> expression adding-operator term ，   , )
+expression -> expression adding-operator term ，   , +
+expression -> expression adding-operator term ，   , -
+term -> term ， multiplying-operator factor   , )
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I155:
+term -> term multiplying-operator factor ，   , )
+term -> term multiplying-operator factor ，   , *
+term -> term multiplying-operator factor ，   , /
+term -> term multiplying-operator factor ，   , +
+term -> term multiplying-operator factor ，   , -
+
+I156:
+factor -> ( expression ) ，   , )
+factor -> ( expression ) ，   , *
+factor -> ( expression ) ，   , /
+factor -> ( expression ) ，   , +
+factor -> ( expression ) ，   , -
+
+I157:
+condition -> expression relation expression ，   , do
+expression -> expression ， adding-operator term   , do
+expression -> expression ， adding-operator term   , +
+expression -> expression ， adding-operator term   , -
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+
+I158:
+statement -> while M condition M do ， statement M   , .
+statement -> ， ident := expression   , .
+statement -> ， call ident   , .
+statement -> ， begin statement-list end   , .
+statement -> ， if condition then M statement M   , .
+statement -> ， while M condition M do statement M   , .
+statement -> ， ε   , .
+
+I159:
+expression -> expression adding-operator ， term   , do
+expression -> expression adding-operator ， term   , +
+expression -> expression adding-operator ， term   , -
+term -> ， factor   , do
+term -> ， term multiplying-operator factor   , do
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , do
+factor -> ， number   , do
+factor -> ， ( expression )   , do
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+
+I160:
+term -> term multiplying-operator ， factor   , do
+term -> term multiplying-operator ， factor   , *
+term -> term multiplying-operator ， factor   , /
+term -> term multiplying-operator ， factor   , +
+term -> term multiplying-operator ， factor   , -
+factor -> ， ident   , do
+factor -> ， number   , do
+factor -> ， ( expression )   , do
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I161:
+expression -> adding-operator term ，   , do
+expression -> adding-operator term ，   , +
+expression -> adding-operator term ，   , -
+term -> term ， multiplying-operator factor   , do
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I162:
+factor -> ( expression ， )   , do
+factor -> ( expression ， )   , *
+factor -> ( expression ， )   , /
+factor -> ( expression ， )   , +
+factor -> ( expression ， )   , -
+expression -> expression ， adding-operator term   , )
+expression -> expression ， adding-operator term   , +
+expression -> expression ， adding-operator term   , -
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+
+I163:
+block -> const-decl var-decl proc-decl ， statement   , ;
+proc-decl -> proc-decl ， procedure ident ; block ;   , ident
+proc-decl -> proc-decl ， procedure ident ; block ;   , call
+proc-decl -> proc-decl ， procedure ident ; block ;   , begin
+proc-decl -> proc-decl ， procedure ident ; block ;   , if
+proc-decl -> proc-decl ， procedure ident ; block ;   , while
+proc-decl -> proc-decl ， procedure ident ; block ;   , ;
+proc-decl -> proc-decl ， procedure ident ; block ;   , procedure
+statement -> ， ident := expression   , ;
+statement -> ， call ident   , ;
+statement -> ， begin statement-list end   , ;
+statement -> ， if condition then M statement M   , ;
+statement -> ， while M condition M do statement M   , ;
+statement -> ， ε   , ;
+
+I164:
+var-decl -> var ident-list ， ;   , procedure
+var-decl -> var ident-list ， ;   , ident
+var-decl -> var ident-list ， ;   , call
+var-decl -> var ident-list ， ;   , begin
+var-decl -> var ident-list ， ;   , if
+var-decl -> var ident-list ， ;   , while
+var-decl -> var ident-list ， ;   , ;
+ident-list -> ident-list ， , ident   , ;
+ident-list -> ident-list ， , ident   , ,
+
+I165:
+const-decl -> const const-assignment-list ; ，   , var
+const-decl -> const const-assignment-list ; ，   , procedure
+const-decl -> const const-assignment-list ; ，   , ident
+const-decl -> const const-assignment-list ; ，   , call
+const-decl -> const const-assignment-list ; ，   , begin
+const-decl -> const const-assignment-list ; ，   , if
+const-decl -> const const-assignment-list ; ，   , while
+const-decl -> const const-assignment-list ; ，   , ;
+
+I166:
+expression -> expression adding-operator term ，   , end
+expression -> expression adding-operator term ，   , ;
+expression -> expression adding-operator term ，   , +
+expression -> expression adding-operator term ，   , -
+term -> term ， multiplying-operator factor   , end
+term -> term ， multiplying-operator factor   , ;
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I167:
+term -> term multiplying-operator factor ，   , end
+term -> term multiplying-operator factor ，   , ;
+term -> term multiplying-operator factor ，   , *
+term -> term multiplying-operator factor ，   , /
+term -> term multiplying-operator factor ，   , +
+term -> term multiplying-operator factor ，   , -
+
+I168:
+factor -> ( expression ) ，   , end
+factor -> ( expression ) ，   , ;
+factor -> ( expression ) ，   , *
+factor -> ( expression ) ，   , /
+factor -> ( expression ) ，   , +
+factor -> ( expression ) ，   , -
+
+I169:
+statement -> if condition then M statement ， M   , end
+statement -> if condition then M statement ， M   , ;
+M -> ， ε   , end
+M -> ， ε   , ;
+
+I170:
+statement -> while M condition M do ， statement M   , end
+statement -> while M condition M do ， statement M   , ;
+statement -> ， ident := expression   , end
+statement -> ， call ident   , end
+statement -> ， begin statement-list end   , end
+statement -> ， if condition then M statement M   , end
+statement -> ， while M condition M do statement M   , end
+statement -> ， ε   , end
+statement -> ， ident := expression   , ;
+statement -> ， call ident   , ;
+statement -> ， begin statement-list end   , ;
+statement -> ， if condition then M statement M   , ;
+statement -> ， while M condition M do statement M   , ;
+statement -> ， ε   , ;
+
+I171:
+statement -> if condition then M statement M ，   , .
+
+I172:
+statement -> while M condition M do statement ， M   , .
+M -> ， ε   , .
+
+I173:
+expression -> expression adding-operator term ，   , do
+expression -> expression adding-operator term ，   , +
+expression -> expression adding-operator term ，   , -
+term -> term ， multiplying-operator factor   , do
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I174:
+term -> term multiplying-operator factor ，   , do
+term -> term multiplying-operator factor ，   , *
+term -> term multiplying-operator factor ，   , /
+term -> term multiplying-operator factor ，   , +
+term -> term multiplying-operator factor ，   , -
+
+I175:
+factor -> ( expression ) ，   , do
+factor -> ( expression ) ，   , *
+factor -> ( expression ) ，   , /
+factor -> ( expression ) ，   , +
+factor -> ( expression ) ，   , -
+
+I176:
+block -> const-decl var-decl proc-decl statement ，   , ;
+
+I177:
+statement -> ident ， := expression   , ;
+
+I178:
+proc-decl -> proc-decl procedure ， ident ; block ;   , ident
+proc-decl -> proc-decl procedure ， ident ; block ;   , call
+proc-decl -> proc-decl procedure ， ident ; block ;   , begin
+proc-decl -> proc-decl procedure ， ident ; block ;   , if
+proc-decl -> proc-decl procedure ， ident ; block ;   , while
+proc-decl -> proc-decl procedure ， ident ; block ;   , ;
+proc-decl -> proc-decl procedure ， ident ; block ;   , procedure
+
+I179:
+statement -> call ， ident   , ;
+
+I180:
+statement -> begin ， statement-list end   , ;
+statement-list -> ， statement   , end
+statement-list -> ， statement-list ; statement   , end
+statement -> ， ident := expression   , end
+statement -> ， call ident   , end
+statement -> ， begin statement-list end   , end
+statement -> ， if condition then M statement M   , end
+statement -> ， while M condition M do statement M   , end
+statement -> ， ε   , end
+statement-list -> ， statement   , ;
+statement-list -> ， statement-list ; statement   , ;
+statement -> ， ident := expression   , ;
+statement -> ， call ident   , ;
+statement -> ， begin statement-list end   , ;
+statement -> ， if condition then M statement M   , ;
+statement -> ， while M condition M do statement M   , ;
+statement -> ， ε   , ;
+
+I181:
+statement -> if ， condition then M statement M   , ;
+condition -> ， expression relation expression   , then
+condition -> ， odd expression   , then
+expression -> ， term   , =
+expression -> ， term   , <>
+expression -> ， term   , <
+expression -> ， term   , >
+expression -> ， term   , <=
+expression -> ， term   , >=
+expression -> ， adding-operator term   , =
+expression -> ， adding-operator term   , <>
+expression -> ， adding-operator term   , <
+expression -> ， adding-operator term   , >
+expression -> ， adding-operator term   , <=
+expression -> ， adding-operator term   , >=
+expression -> ， expression adding-operator term   , =
+expression -> ， expression adding-operator term   , <>
+expression -> ， expression adding-operator term   , <
+expression -> ， expression adding-operator term   , >
+expression -> ， expression adding-operator term   , <=
+expression -> ， expression adding-operator term   , >=
+term -> ， factor   , =
+term -> ， term multiplying-operator factor   , =
+term -> ， factor   , <>
+term -> ， term multiplying-operator factor   , <>
+term -> ， factor   , <
+term -> ， term multiplying-operator factor   , <
+term -> ， factor   , >
+term -> ， term multiplying-operator factor   , >
+term -> ， factor   , <=
+term -> ， term multiplying-operator factor   , <=
+term -> ， factor   , >=
+term -> ， term multiplying-operator factor   , >=
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+expression -> ， term   , +
+expression -> ， term   , -
+expression -> ， adding-operator term   , +
+expression -> ， adding-operator term   , -
+expression -> ， expression adding-operator term   , +
+expression -> ， expression adding-operator term   , -
+factor -> ， ident   , =
+factor -> ， number   , =
+factor -> ， ( expression )   , =
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+factor -> ， ident   , <>
+factor -> ， number   , <>
+factor -> ， ( expression )   , <>
+factor -> ， ident   , <
+factor -> ， number   , <
+factor -> ， ( expression )   , <
+factor -> ， ident   , >
+factor -> ， number   , >
+factor -> ， ( expression )   , >
+factor -> ， ident   , <=
+factor -> ， number   , <=
+factor -> ， ( expression )   , <=
+factor -> ， ident   , >=
+factor -> ， number   , >=
+factor -> ， ( expression )   , >=
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I182:
+statement -> while ， M condition M do statement M   , ;
+M -> ， ε   , ident
+M -> ， ε   , number
+M -> ， ε   , odd
+M -> ， ε   , +
+M -> ， ε   , -
+M -> ， ε   , (
+
+I183:
+var-decl -> var ident-list ; ，   , procedure
+var-decl -> var ident-list ; ，   , ident
+var-decl -> var ident-list ; ，   , call
+var-decl -> var ident-list ; ，   , begin
+var-decl -> var ident-list ; ，   , if
+var-decl -> var ident-list ; ，   , while
+var-decl -> var ident-list ; ，   , ;
+
+I184:
+statement -> if condition then M statement M ，   , end
+statement -> if condition then M statement M ，   , ;
+
+I185:
+statement -> while M condition M do statement ， M   , end
+statement -> while M condition M do statement ， M   , ;
+M -> ， ε   , end
+M -> ， ε   , ;
+
+I186:
+statement -> while M condition M do statement M ，   , .
+
+I187:
+statement -> ident := ， expression   , ;
+expression -> ， term   , ;
+expression -> ， adding-operator term   , ;
+expression -> ， expression adding-operator term   , ;
+term -> ， factor   , ;
+term -> ， term multiplying-operator factor   , ;
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+expression -> ， term   , +
+expression -> ， term   , -
+expression -> ， adding-operator term   , +
+expression -> ， adding-operator term   , -
+expression -> ， expression adding-operator term   , +
+expression -> ， expression adding-operator term   , -
+factor -> ， ident   , ;
+factor -> ， number   , ;
+factor -> ， ( expression )   , ;
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I188:
+proc-decl -> proc-decl procedure ident ， ; block ;   , ident
+proc-decl -> proc-decl procedure ident ， ; block ;   , call
+proc-decl -> proc-decl procedure ident ， ; block ;   , begin
+proc-decl -> proc-decl procedure ident ， ; block ;   , if
+proc-decl -> proc-decl procedure ident ， ; block ;   , while
+proc-decl -> proc-decl procedure ident ， ; block ;   , ;
+proc-decl -> proc-decl procedure ident ， ; block ;   , procedure
+
+I189:
+statement -> call ident ，   , ;
+
+I190:
+statement -> begin statement-list ， end   , ;
+statement-list -> statement-list ， ; statement   , end
+statement-list -> statement-list ， ; statement   , ;
+
 I191:
+statement -> if condition ， then M statement M   , ;
+
+I192:
+statement -> while M ， condition M do statement M   , ;
+condition -> ， expression relation expression   , do
+condition -> ， odd expression   , do
+expression -> ， term   , =
+expression -> ， term   , <>
+expression -> ， term   , <
+expression -> ， term   , >
+expression -> ， term   , <=
+expression -> ， term   , >=
+expression -> ， adding-operator term   , =
+expression -> ， adding-operator term   , <>
+expression -> ， adding-operator term   , <
+expression -> ， adding-operator term   , >
+expression -> ， adding-operator term   , <=
+expression -> ， adding-operator term   , >=
+expression -> ， expression adding-operator term   , =
+expression -> ， expression adding-operator term   , <>
+expression -> ， expression adding-operator term   , <
+expression -> ， expression adding-operator term   , >
+expression -> ， expression adding-operator term   , <=
+expression -> ， expression adding-operator term   , >=
+term -> ， factor   , =
+term -> ， term multiplying-operator factor   , =
+term -> ， factor   , <>
+term -> ， term multiplying-operator factor   , <>
+term -> ， factor   , <
+term -> ， term multiplying-operator factor   , <
+term -> ， factor   , >
+term -> ， term multiplying-operator factor   , >
+term -> ， factor   , <=
+term -> ， term multiplying-operator factor   , <=
+term -> ， factor   , >=
+term -> ， term multiplying-operator factor   , >=
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+expression -> ， term   , +
+expression -> ， term   , -
+expression -> ， adding-operator term   , +
+expression -> ， adding-operator term   , -
+expression -> ， expression adding-operator term   , +
+expression -> ， expression adding-operator term   , -
+factor -> ， ident   , =
+factor -> ， number   , =
+factor -> ， ( expression )   , =
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+factor -> ， ident   , <>
+factor -> ， number   , <>
+factor -> ， ( expression )   , <>
+factor -> ， ident   , <
+factor -> ， number   , <
+factor -> ， ( expression )   , <
+factor -> ， ident   , >
+factor -> ， number   , >
+factor -> ， ( expression )   , >
+factor -> ， ident   , <=
+factor -> ， number   , <=
+factor -> ， ( expression )   , <=
+factor -> ， ident   , >=
+factor -> ， number   , >=
+factor -> ， ( expression )   , >=
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I193:
+statement -> while M condition M do statement M ，   , end
+statement -> while M condition M do statement M ，   , ;
+
+I194:
+factor -> ident ，   , ;
+factor -> ident ，   , *
+factor -> ident ，   , /
+factor -> ident ，   , +
+factor -> ident ，   , -
+
+I195:
+factor -> number ，   , ;
+factor -> number ，   , *
+factor -> number ，   , /
+factor -> number ，   , +
+factor -> number ，   , -
+
+I196:
+statement -> ident := expression ，   , ;
+expression -> expression ， adding-operator term   , ;
+expression -> expression ， adding-operator term   , +
+expression -> expression ， adding-operator term   , -
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+
+I197:
+expression -> term ，   , ;
+term -> term ， multiplying-operator factor   , ;
+expression -> term ，   , +
+expression -> term ，   , -
+term -> term ， multiplying-operator factor   , *
+term -> term ， multiplying-operator factor   , /
+term -> term ， multiplying-operator factor   , +
+term -> term ， multiplying-operator factor   , -
+multiplying-operator -> ， *   , ident
+multiplying-operator -> ， *   , number
+multiplying-operator -> ， *   , (
+multiplying-operator -> ， /   , ident
+multiplying-operator -> ， /   , number
+multiplying-operator -> ， /   , (
+
+I198:
+expression -> adding-operator ， term   , ;
+expression -> adding-operator ， term   , +
+expression -> adding-operator ， term   , -
+term -> ， factor   , ;
+term -> ， term multiplying-operator factor   , ;
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , ;
+factor -> ， number   , ;
+factor -> ， ( expression )   , ;
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+
+I199:
+term -> factor ，   , ;
+term -> factor ，   , *
+term -> factor ，   , /
+term -> factor ，   , +
+term -> factor ，   , -
+
+I200:
+factor -> ( ， expression )   , ;
+factor -> ( ， expression )   , *
+factor -> ( ， expression )   , /
+factor -> ( ， expression )   , +
+factor -> ( ， expression )   , -
+expression -> ， term   , )
+expression -> ， adding-operator term   , )
+expression -> ， expression adding-operator term   , )
+term -> ， factor   , )
+term -> ， term multiplying-operator factor   , )
+adding-operator -> ， +   , ident
+adding-operator -> ， +   , number
+adding-operator -> ， +   , (
+adding-operator -> ， -   , ident
+adding-operator -> ， -   , number
+adding-operator -> ， -   , (
+expression -> ， term   , +
+expression -> ， term   , -
+expression -> ， adding-operator term   , +
+expression -> ， adding-operator term   , -
+expression -> ， expression adding-operator term   , +
+expression -> ， expression adding-operator term   , -
+factor -> ， ident   , )
+factor -> ， number   , )
+factor -> ， ( expression )   , )
+term -> ， factor   , *
+term -> ， factor   , /
+term -> ， term multiplying-operator factor   , *
+term -> ， term multiplying-operator factor   , /
+term -> ， factor   , +
+term -> ， term multiplying-operator factor   , +
+term -> ， factor   , -
+term -> ， term multiplying-operator factor   , -
+factor -> ， ident   , *
+factor -> ， number   , *
+factor -> ， ( expression )   , *
+factor -> ， ident   , /
+factor -> ， number   , /
+factor -> ， ( expression )   , /
+factor -> ， ident   , +
+factor -> ， number   , +
+factor -> ， ( expression )   , +
+factor -> ， ident   , -
+factor -> ， number   , -
+factor -> ， ( expression )   , -
+
+I201:
 proc-decl -> proc-decl procedure ident ; ， block ;   , ident
 proc-decl -> proc-decl procedure ident ; ， block ;   , call
 proc-decl -> proc-decl procedure ident ; ， block ;   , begin
@@ -3357,28 +3431,23 @@ const-decl -> ， ε   , if
 const-decl -> ， ε   , while
 const-decl -> ， ε   , ;
 
-I192:
+I202:
 statement -> begin statement-list end ，   , ;
 
-I193:
-statement -> if condition then ， statement   , ;
-statement -> ， ident := expression   , ;
-statement -> ， call ident   , ;
-statement -> ， begin statement-list end   , ;
-statement -> ， if condition then statement   , ;
-statement -> ， while condition do statement   , ;
-statement -> ， ε   , ;
+I203:
+statement -> if condition then ， M statement M   , ;
+M -> ， ε   , ident
+M -> ， ε   , call
+M -> ， ε   , begin
+M -> ， ε   , if
+M -> ， ε   , while
+M -> ， ε   , ;
 
-I194:
-statement -> while condition do ， statement   , ;
-statement -> ， ident := expression   , ;
-statement -> ， call ident   , ;
-statement -> ， begin statement-list end   , ;
-statement -> ， if condition then statement   , ;
-statement -> ， while condition do statement   , ;
-statement -> ， ε   , ;
+I204:
+statement -> while M condition ， M do statement M   , ;
+M -> ， ε   , do
 
-I195:
+I205:
 expression -> expression adding-operator ， term   , ;
 expression -> expression adding-operator ， term   , +
 expression -> expression adding-operator ， term   , -
@@ -3408,7 +3477,7 @@ factor -> ， ident   , /
 factor -> ， number   , /
 factor -> ， ( expression )   , /
 
-I196:
+I206:
 term -> term multiplying-operator ， factor   , ;
 term -> term multiplying-operator ， factor   , *
 term -> term multiplying-operator ， factor   , /
@@ -3430,7 +3499,7 @@ factor -> ， ident   , -
 factor -> ， number   , -
 factor -> ， ( expression )   , -
 
-I197:
+I207:
 expression -> adding-operator term ，   , ;
 expression -> adding-operator term ，   , +
 expression -> adding-operator term ，   , -
@@ -3446,7 +3515,7 @@ multiplying-operator -> ， /   , ident
 multiplying-operator -> ， /   , number
 multiplying-operator -> ， /   , (
 
-I198:
+I208:
 factor -> ( expression ， )   , ;
 factor -> ( expression ， )   , *
 factor -> ( expression ， )   , /
@@ -3462,7 +3531,7 @@ adding-operator -> ， -   , ident
 adding-operator -> ， -   , number
 adding-operator -> ， -   , (
 
-I199:
+I209:
 proc-decl -> proc-decl procedure ident ; block ， ;   , ident
 proc-decl -> proc-decl procedure ident ; block ， ;   , call
 proc-decl -> proc-decl procedure ident ; block ， ;   , begin
@@ -3471,13 +3540,19 @@ proc-decl -> proc-decl procedure ident ; block ， ;   , while
 proc-decl -> proc-decl procedure ident ; block ， ;   , ;
 proc-decl -> proc-decl procedure ident ; block ， ;   , procedure
 
-I200:
-statement -> if condition then statement ，   , ;
+I210:
+statement -> if condition then M ， statement M   , ;
+statement -> ， ident := expression   , ;
+statement -> ， call ident   , ;
+statement -> ， begin statement-list end   , ;
+statement -> ， if condition then M statement M   , ;
+statement -> ， while M condition M do statement M   , ;
+statement -> ， ε   , ;
 
-I201:
-statement -> while condition do statement ，   , ;
+I211:
+statement -> while M condition M ， do statement M   , ;
 
-I202:
+I212:
 expression -> expression adding-operator term ，   , ;
 expression -> expression adding-operator term ，   , +
 expression -> expression adding-operator term ，   , -
@@ -3493,21 +3568,21 @@ multiplying-operator -> ， /   , ident
 multiplying-operator -> ， /   , number
 multiplying-operator -> ， /   , (
 
-I203:
+I213:
 term -> term multiplying-operator factor ，   , ;
 term -> term multiplying-operator factor ，   , *
 term -> term multiplying-operator factor ，   , /
 term -> term multiplying-operator factor ，   , +
 term -> term multiplying-operator factor ，   , -
 
-I204:
+I214:
 factor -> ( expression ) ，   , ;
 factor -> ( expression ) ，   , *
 factor -> ( expression ) ，   , /
 factor -> ( expression ) ，   , +
 factor -> ( expression ) ，   , -
 
-I205:
+I215:
 proc-decl -> proc-decl procedure ident ; block ; ，   , ident
 proc-decl -> proc-decl procedure ident ; block ; ，   , call
 proc-decl -> proc-decl procedure ident ; block ; ，   , begin
@@ -3515,4 +3590,27 @@ proc-decl -> proc-decl procedure ident ; block ; ，   , if
 proc-decl -> proc-decl procedure ident ; block ; ，   , while
 proc-decl -> proc-decl procedure ident ; block ; ，   , ;
 proc-decl -> proc-decl procedure ident ; block ; ，   , procedure
+
+I216:
+statement -> if condition then M statement ， M   , ;
+M -> ， ε   , ;
+
+I217:
+statement -> while M condition M do ， statement M   , ;
+statement -> ， ident := expression   , ;
+statement -> ， call ident   , ;
+statement -> ， begin statement-list end   , ;
+statement -> ， if condition then M statement M   , ;
+statement -> ， while M condition M do statement M   , ;
+statement -> ， ε   , ;
+
+I218:
+statement -> if condition then M statement M ，   , ;
+
+I219:
+statement -> while M condition M do statement ， M   , ;
+M -> ， ε   , ;
+
+I220:
+statement -> while M condition M do statement M ，   , ;
 
