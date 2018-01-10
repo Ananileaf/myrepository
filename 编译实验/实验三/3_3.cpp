@@ -1299,6 +1299,7 @@ void work3_read()
 	read[read_len++] = mp["$"];
 }
 
+//加入数字 
 void insert_num(char *str,int num)
 {
 	
@@ -1308,7 +1309,7 @@ void insert_num(char *str,int num)
 		int id = -num;
 		int len = strlen(read_id[id]);
 		for(int i = 0; i < len; ++i) str[i] = read_id[id][i];
-		
+		read_id[id][0] = '\0';
 		return;
 	}
 	else if(num>=10000)
@@ -1337,6 +1338,7 @@ void insert_num(char *str,int num)
 	} 
 }
 
+//回填,truelist填入 goto M 
 void backpatch(string truelist,int M)
 {
 	int q = M;
@@ -1381,7 +1383,7 @@ void work3_trainslate(int state,int k)
 		string next = "";next += p_len;
 		statement_nextlist.push(next);
 		
-		while(strlen(read_id[id]) == 0)--id;
+		
 		//op
 		str[op] = '=';
 		
@@ -1391,6 +1393,7 @@ void work3_trainslate(int state,int k)
 		insert_num(str+arg1+1,num);
 		
 		//result
+		while(strlen(read_id[id]) == 0)--id;
 		len = strlen(read_id[id]);
 		for(int i = 0;i<len; ++i) str[i+result] = read_id[id][i];
 		

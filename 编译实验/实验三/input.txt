@@ -4,21 +4,7 @@ var
 	s,
 	n;
 begin     
-	n := 1 ;
-	s := n * ( 1.0 + 2) / 3;
-	if s < n then  
-	begin
-		n := n + 1 ;
-		n := n + 4 ;
-		 
-	end ;
-	
-	
-	while s / 2 + 1 <= n + 1 do 
-	begin 
-		s := s + 1 ;
-		n := n - 1 ;
-	end ;
-	s := s - 1;
-
+	n := 5 ;
+	s := 2 + 3 * 3 + 5 ; 
+	n := s * 2 / ( 2.0 + 8 )  + s + n ;
 end .

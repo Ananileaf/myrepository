@@ -5,7 +5,7 @@ var
 begin     
 	s:=0;
 	n:=0;  
-	s:=n+s;   
+	s:= n + s ;   
 	while s<=10 do
 		begin       
 			n:=n+1;
@@ -14,4 +14,9 @@ begin
 	sfafsa
 	a} 
 		end;     
+
+	if s < n then  ;
+	
+	s := n  ;
+	
 end .
