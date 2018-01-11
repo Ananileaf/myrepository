@@ -1,10 +1,9 @@
-const p = 2.0 , q = 3.0 , a  = 4 ;
-
-var 
-	s,
-	n;
-begin     
-	n := 5 ;
-	s := 2 + 3 * 3 + 5 ; 
-	n := s * 2 / ( 2.0 + 8 )  + s + n ;
+var a,b,c,x;
+begin
+  a:=1 ;
+  b:=2 ;
+  c:=3 ;
+  
+  if a < b then ; 
+  x:=(a+b)*c ;
 end .
