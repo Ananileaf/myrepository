@@ -1,0 +1,143 @@
+表达式翻译
+
+赋值
+1.(13) 
+
+statement   →   ident := expression 
+statnment.nextlist = nextlist
+
+statement.code = gen(top.get(ident.lexme) '=' expression.addr)
+
+2.(5)
+const-assignment-list   →   ident = number  $
+const-assignment-list.code = gen(top.get(ident.lexme) '=' top.get(number.lexme))
+
+3.(6)
+const-assignment-list   →   const-assignment-list , ident = number  $
+gen(top.get(ident.lexme) '=' top.get(number.lexme))
+
+
++-*/
+4.(31)
+expression   →   expression1 adding-operator term
+expression.addr = new Temp()
+gen(expression.addr ‘=’expression1.addr adding-operator term.addr
+
+
+5.(35)
+term   →   term1 multiplying-operator factor
+term.addr = new Temp()
+gen(term.addr = term.addr multiplying-operator factor.addr)
+
+
+6.(29)
+expression   →   term  $
+expression.addr = top.get(id.lexeme)
+
+7.(30)
+expression   →   adding-operator term   $
+expression.addr = new Temp()
+gen(E.addr '=' 'minus' term.addr)
+
+8.(34)
+term   →   factor
+term.addr = factor.addr
+
+9.(38)
+factor   →   ident  $
+factor.addr = ident.addr
+
+10.(39)
+factor   →   number  $
+factor.addr = number.addr
+
+11.(40)
+factor   →   ( expression )  $
+factor.addr = expression.addr
+
+
+12.(32) 
+adding-operator  →   +  $ 
+adding-operator.addr = +
+
+13.(33) 
+adding-operator  →   -  $
+adding-operator.addr = -
+
+14.(36) 
+multiplying-operator   →   *  $
+multiplying-operator.addr = *
+
+15.(37) 
+multiplying-operator   →   /  $
+multiplying-operator.addr = /
+
+
+控制流翻译
+
+16.(21) 
+condition   →   expression1 relation expression2  $
+condition.truelist = makeist()
+gen('if' expression1.addr relation.addr expression2.addr 'goto' condition.true)
+gen('goto' condition.false)
+
+17.(23) 
+relation   →   =  $
+relation.addr = =
+
+18.(24) 
+relation   →   <>  $
+relation.addr = <>
+
+19.(25) 
+relation   →   <  $
+relation.addr = <
+
+20.(26) 
+relation   →   >  $
+relation.addr = >
+
+21.(27) 
+relation   →   <=  $
+relation.addr = <=
+
+22.(28) 
+relation   →   >=  $ 
+relation.addr = >=
+
+23.(16) 
+statement   → if  condition then M2 statement1 M1 $
+
+backpath(condition.truelist,M.instr2)
+backpath(condition.falselist,M.instr1)
+
+statement.nextlist = merge(condition.falselist,statement1.nextlist)
+
+24.(17) 
+statement   →   while condition do statement1  $
+begin = newlabel()
+condition.true = newlabel()
+condition.false = statement.label()
+statement1.next = begin
+
+gen("goto" begin)
+
+25.(41) 
+M   →   ε  $
+M.instr = nextlist
+
+26.(15) 
+statement   →   begin statement-list end  $
+statement.nextlist = statment-list.nextlist;
+
+27.(19) statement-list   →   statement  $
+28.(20) statement-list   →   statement-list ; statement  $
+statement-list.nextlist = statement.nextlist
+
+29.(17) 
+statement   →   while M1 condition M2 do statement1 M3 $
+backpatch(statement1.nextlist,M1.instr)
+backpatch(condition.truelist,M2.instr)
+backpatch(condition.falselist,M3.instr + 1)
+statement.nextlist = condition.falselist
+gen('goto' M1.instr)

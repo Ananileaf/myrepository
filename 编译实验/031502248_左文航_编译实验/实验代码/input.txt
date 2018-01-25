@@ -1,0 +1,9 @@
+var a,b,c,x;
+begin
+  a:=1 ;
+  b:=2 ;
+  c:=3 ;
+  
+  if a < b then ; 
+  x:=(a+b)*c ;
+end .
